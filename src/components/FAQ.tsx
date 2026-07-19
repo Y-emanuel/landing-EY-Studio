@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { faqs } from '../content/data'
+import { faqs, whatsappLink } from '../content/data'
 import { defaultViewport, easePremium, slideUp, staggerContainer } from '../lib/motion'
-import { Reveal } from './motion/Reveal'
+// Eliminamos import de Reveal
 import { SectionLabel } from './ui'
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -21,18 +21,27 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       >
         <h3 className="text-lg font-semibold text-white">{question}</h3>
         <motion.span
-          animate={{ rotate: open ? 45 : 0 }}
+          animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.3, ease: easePremium }}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-pulse/15 text-violet-haze"
           aria-hidden="true"
         >
-          +
+          <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5">
+            <path
+              d="M5 8l5 5 5-5"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </motion.span>
       </button>
 
       <div
-        className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-          }`}
+        className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+          open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+        }`}
       >
         <div className="min-h-0 overflow-hidden">
           <motion.p
@@ -50,12 +59,27 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 export function FAQ() {
   return (
-    <section id="faq" className="border-b border-white/[0.08] bg-ink px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+    <section id="faq" className="border-b border-white/[0.08] bg-ink px-5 py-16 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <Reveal>
+        <div>
           <SectionLabel>FAQ</SectionLabel>
-          <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-5xl">Preguntas frecuentes antes de empezar.</h2>
-        </Reveal>
+          <h2 className="mt-5 font-display text-3xl font-medium leading-tight tracking-[-0.015em] text-white sm:text-5xl">
+            Preguntas frecuentes <span className="text-violet-haze">antes de empezar.</span>
+          </h2>
+          <p className="mt-4 text-base leading-7 text-white/50">
+            Respondemos las dudas más comunes para que tomes la decisión con confianza.
+          </p>
+          <motion.a
+            href={whatsappLink}
+            target="_blank"
+            rel="noreferrer"
+            whileHover={{ x: 4 }}
+            className="mt-8 inline-flex items-center gap-2 text-violet-haze hover:underline"
+          >
+            ¿No encontraste tu pregunta? Preguntanos →
+          </motion.a>
+        </div>
+
         <motion.div
           initial="hidden"
           whileInView="visible"

@@ -1,8 +1,14 @@
 type NicheKind = 'barber' | 'esthetic' | 'gym' | 'electrician'
 
-function Chip({ children }: { children: string }) {
+function Chip({ children, active }: { children: string; active?: boolean }) {
   return (
-    <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-center text-[11px] text-white/60 ring-1 ring-white/[0.05]">
+    <span
+      className={`rounded-full px-3 py-1.5 text-center text-[11px] transition-all ${
+        active
+          ? 'bg-violet-pulse/20 text-violet-haze ring-1 ring-violet-haze/40'
+          : 'bg-white/[0.06] text-white/60 ring-1 ring-white/[0.05] hover:bg-white/[0.1]'
+      }`}
+    >
       {children}
     </span>
   )
@@ -31,15 +37,18 @@ function EstheticBody({ chips }: { chips: string[] }) {
         {chips.map((chip, i) => (
           <span
             key={chip}
-            className={`rounded-full px-3 py-1.5 text-[11px] ${i === 0 ? 'bg-white text-ink' : 'bg-white/[0.06] text-white/60 ring-1 ring-white/[0.05]'
-              }`}
+            className={`rounded-full px-3 py-1.5 text-[11px] ${
+              i === 0
+                ? 'bg-white text-ink shadow-glow'
+                : 'bg-white/[0.06] text-white/60 ring-1 ring-white/[0.05]'
+            }`}
           >
             {chip}
           </span>
         ))}
       </div>
       <div className="mt-4 flex items-center gap-3 rounded-xl bg-white/[0.05] p-3 ring-1 ring-white/[0.05]">
-        <div className="h-10 w-10 shrink-0 rounded-lg bg-gradient-to-br from-violet-pulse/40 to-violet-deep" />
+        <div className="h-10 w-10 shrink-0 rounded-lg bg-gradient-to-br from-violet-pulse/40 to-violet-deep shadow-glow" />
         <div className="min-w-0">
           <p className="truncate text-xs font-medium text-white/80">Tratamiento facial</p>
           <p className="text-[11px] text-white/45">Promo activa este mes</p>
@@ -64,7 +73,9 @@ function GymBody({ chips }: { chips: string[] }) {
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
         {chips.map((chip) => (
-          <Chip key={chip}>{chip}</Chip>
+          <Chip key={chip} active={chip === 'Funcional'}>
+            {chip}
+          </Chip>
         ))}
       </div>
     </div>
@@ -75,8 +86,8 @@ function ElectricianBody({ chips }: { chips: string[] }) {
   return (
     <div className="mt-6">
       <div className="flex items-center gap-2 rounded-xl bg-violet-pulse/10 px-3 py-2 ring-1 ring-violet-haze/25">
-        <span className="h-2 w-2 rounded-full bg-violet-haze shadow-glow" />
-        <span className="text-[11px] font-medium text-violet-haze">Urgencias · Disponible</span>
+        <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-glow animate-pulse" />
+        <span className="text-[11px] font-medium text-violet-haze">Urgencias · Disponible 24/7</span>
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
         {chips.map((chip) => (
@@ -100,19 +111,25 @@ export function NicheMock({
 }) {
   return (
     <div className="relative overflow-hidden rounded-[1.35rem] border border-white/[0.08] bg-[#09080f] shadow-2xl shadow-black/25">
+      {/* Barra superior simulando navegador */}
       <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.045] px-4 py-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-violet-haze" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/12" />
+        <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
         <span className="ml-auto rounded-full bg-black/30 px-3 py-1 text-[11px] text-white/45">
-          preview
+          🖥️ preview
         </span>
       </div>
+
       <div className="relative min-h-52 overflow-hidden p-5">
+        {/* Efectos de luz */}
         <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-violet-pulse/25 blur-3xl" />
         <div className="absolute -bottom-12 left-8 h-36 w-36 rounded-full bg-violet-deep/50 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+
         <div className="relative">
-          <div className="h-3 w-28 rounded-full bg-violet-haze/65" />
+          {/* Título de la demo */}
+          <div className="h-3 w-28 rounded-full bg-violet-haze/65 shadow-glow" />
           <div className="mt-4 h-9 w-4/5 rounded-xl bg-white/[0.1]" />
           <div className="mt-3 h-8 w-2/3 rounded-xl bg-white/[0.06]" />
 
@@ -122,9 +139,9 @@ export function NicheMock({
           {kind === 'electrician' ? <ElectricianBody chips={chips} /> : null}
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <div className="inline-flex rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink">
+            <span className="inline-flex rounded-full bg-gradient-to-r from-violet-haze to-violet-pulse px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-violet-haze/30">
               {cta}
-            </div>
+            </span>
             <span className="rounded-full border border-violet-haze/30 bg-violet-pulse/10 px-3 py-2 text-xs text-violet-haze">
               {note}
             </span>

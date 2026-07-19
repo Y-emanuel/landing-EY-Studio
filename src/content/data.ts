@@ -1,5 +1,5 @@
 const whatsappMessage =
-  'Hola Emanuel, quiero una web para mi negocio. Me gustaría recibir información sobre opciones, tiempos y presupuesto.'
+  'Hola Emanuel, vi tu web y quiero una landing page profesional para mi negocio. Me gustaría saber opciones, tiempos y presupuesto.'
 
 export const whatsappLink = `https://wa.me/5491154827168?text=${encodeURIComponent(whatsappMessage)}`
 export const emailLink = 'mailto:emanuelybalo.contacto@gmail.com'
@@ -7,80 +7,85 @@ export const instagramLink = 'https://instagram.com/emanuelybalo.tech'
 
 export const navLinks: [string, string][] = [
   ['Servicios', '#servicios'],
-  ['Demos', '#trabajos'],
+  ['Casos', '#trabajos'], // Cambié "Demos" por "Casos" para que suene más profesional
   ['Paquetes', '#paquetes'],
   ['Proceso', '#proceso'],
   ['Contacto', '#contacto'],
 ]
 
+// === STATS DEL HERO (más directos) ===
 export const proofStats = [
-  { value: '5–10 días', label: 'Entrega estimada' },
-  { value: '100%', label: 'Responsive' },
-  { value: 'WhatsApp', label: 'Consulta directa' },
-  { value: 'SEO básico', label: 'Incluido' },
+  { value: '5 a 10 días', label: 'Entrega rápida', icon: 'calendar' },
+  { value: '100%', label: 'Adaptado a celular', icon: 'mobile' },
+  { value: 'WhatsApp Directo', label: 'Sin pasos intermedios', icon: 'whatsapp' },
+  { value: 'SEO Incluido', label: 'Google te encuentra', icon: 'seo' },
 ]
 
+// === NICHIOS (sin cambios, pero los dejamos listos) ===
 export const niches = [
   'Emprendimientos',
   'Locales comerciales',
   'Profesionales',
-  'Gimnasios',
-  'Estéticas',
+  'Gimnasios', 
+  'Estéticas', 
   'Servicios técnicos',
   'Barberías',
   'Servicios a domicilio',
 ]
 
+// === SERVICIOS (copy más persuasivo y específico) ===
 export const services = [
   {
     title: 'Landing Pages',
-    text: 'Páginas de alto impacto para explicar tu oferta, generar confianza y convertir visitas en consultas.',
+    text: 'Página de una sola vista diseñada para que el cliente entienda tu oferta en 5 segundos y te escriba por WhatsApp.',
     mark: 'LP',
-    focus: 'Captación',
+    focus: 'Conversión',
   },
   {
     title: 'Sitios Web Profesionales',
-    text: 'Presencia digital completa para negocios que necesitan verse sólidos, ordenados y confiables.',
+    text: 'Presencia digital completa con varias secciones (quienes somos, servicios, contacto) para dar una imagen sólida y confiable.',
     mark: 'WEB',
-    focus: 'Imagen',
+    focus: 'Credibilidad',
   },
   {
     title: 'Tiendas Online',
-    text: 'Catálogos simples y experiencias de compra iniciales para mostrar productos y vender por internet.',
+    text: 'Catálogo visual y carrito de compras sencillo. Ideal para empezar a vender productos sin complicaciones técnicas.',
     mark: 'SHOP',
-    focus: 'Venta',
+    focus: 'Ventas',
   },
   {
     title: 'Aplicaciones Web',
-    text: 'Herramientas a medida para reservas, gestión interna, turnos o procesos comerciales específicos.',
+    text: 'Sistemas a medida para gestionar turnos, reservas o procesos internos. Automatizamos tu operación diaria.',
     mark: 'APP',
-    focus: 'Sistema',
+    focus: 'Gestión',
   },
   {
     title: 'Automatizaciones con IA',
-    text: 'Flujos automáticos para ordenar consultas, responder mejor y ahorrar tiempo operativo.',
+    text: 'Chatbots y flujos automáticos que responden consultas 24/7, filtran clientes y te ahorran horas de atención.',
     mark: 'IA',
-    focus: 'Escala',
+    focus: 'Escalabilidad',
   },
   {
-    title: 'Optimización y Mantenimiento',
-    text: 'Mejoras de velocidad, SEO básico, soporte, ajustes y evolución continua de la web.',
+    title: 'Optimización SEO',
+    text: 'Mejoras de velocidad, estructura de datos y palabras clave para que tu web aparezca en las búsquedas de tu zona.',
     mark: 'SEO',
-    focus: 'Mejora',
+    focus: 'Visibilidad',
   },
 ]
 
+// === ENTREGABLES (más claros y con valor añadido) ===
 export const deliverables = [
-  'Diseño visual premium',
-  'Estructura orientada a conversión',
-  'Versión celular, tablet y escritorio',
-  'Botones directos a WhatsApp',
-  'Mensaje comercial claro',
-  'SEO técnico básico',
-  'Publicación online',
-  'Soporte inicial post-entrega',
+  'Diseño visual premium y moderno',
+  'Estructura armada para convertir (orientada a CTA)',
+  '100% responsive (celular, tablet y escritorio)',
+  'Botones directos con mensaje predefinido a WhatsApp',
+  'Mensaje comercial claro y ordenado',
+  'Configuración SEO básica (títulos, descripciones, meta tags)',
+  'Publicación online (te guiamos o lo hacemos nosotros)',
+  'Soporte y ajustes iniciales post-entrega',
 ]
 
+// === PROYECTOS DEMO (sin cambios, se ven bien) ===
 export const projects = [
   {
     kind: 'barber' as const,
@@ -120,113 +125,140 @@ export const projects = [
   },
 ]
 
+// === PAQUETES (MEJORADOS CON PRECIOS Y BENEFICIOS CLAROS) ===
 export const packages = [
   {
     name: 'Landing Esencial',
-    badge: 'Para empezar',
-    description: 'Ideal para negocios que necesitan presencia profesional y una forma clara de recibir consultas.',
-    items: ['Hasta 5 secciones', 'Diseño responsive', 'WhatsApp integrado', 'Publicación online'],
-    cta: 'Consultar opción esencial',
+    badge: 'Para arrancar',
+    price: 'USD 150',
+    description: 'Presencia profesional sin complicaciones. Ideal para negocios que están en redes y quieren su primer punto de venta propio.',
+    items: [
+      '1 página (hasta 5 secciones)',
+      'Diseño responsive (celular/tablet/escritorio)',
+      'WhatsApp integrado con mensaje automático',
+      'Publicación online y SEO básico',
+      '1 ronda de revisiones'
+    ],
+    cta: 'Quiero mi Esencial',
+    highlighted: false,
   },
   {
     name: 'Landing Pro',
-    badge: 'Más elegida',
-    description: 'Pensada para negocios que quieren verse más sólidos y convertir mejor desde redes o anuncios.',
-    items: ['Hasta 8 secciones', 'Copy comercial', 'Demos/galería simple', 'SEO básico', 'CTA optimizados'],
-    highlighted: true,
-    cta: 'Quiero la opción pro',
+    badge: '⭐ Más elegida',
+    price: 'USD 350',
+    description: 'Para negocios que quieren destacar, mostrar más servicios y tener un embudo de conversión pensado para redes sociales o Google Ads.',
+    items: [
+      '1 página extendida (hasta 8 secciones)',
+      'Copy comercial redactado para vender',
+      'Galería de imágenes o servicios destacados',
+      'Formulario de contacto + WhatsApp',
+      'Optimización SEO avanzada (local)',
+      '2 rondas de revisiones',
+      'Entrega en 7 días'
+    ],
+    cta: 'Quiero el Pro',
+    highlighted: true, // Este será el plan destacado visualmente
   },
   {
     name: 'Web Premium',
-    badge: 'A medida',
-    description: 'Para marcas que necesitan una presencia más completa, escalable y con mayor percepción de valor.',
-    items: ['Arquitectura personalizada', 'Más vistas o secciones', 'Integraciones iniciales', 'Soporte evolutivo'],
-    cta: 'Consultar web premium',
+    badge: 'Máxima calidad',
+    price: 'Desde USD 600',
+    description: 'Para marcas que necesitan una presencia digital robusta, con múltiples páginas y funcionalidades a medida para crecer.',
+    items: [
+      'Hasta 5 páginas (Inicio, Nosotros, Servicios, Blog, Contacto)',
+      'Diseño 100% personalizado y exclusivo',
+      'Integración con redes sociales y Google Maps',
+      'Panel de administración sencillo (para editar textos)',
+      'Configuración de Google Analytics',
+      'Soporte prioritario por 30 días',
+      '3 rondas de revisiones'
+    ],
+    cta: 'Consultar Premium',
+    glitch: true,
+    highlighted: false,
   },
 ]
 
+// === PROCESO DE TRABAJO (AGREGAMOS UN 4TO PASO) ===
 export const process = [
   {
-    title: 'Diagnóstico',
-    text: 'Entendemos tu negocio, objetivo, público y qué debe comunicar la web para generar confianza.',
+    title: '1. Nos contás',
+    text: 'Una breve charla para entender tu negocio, tu público y qué necesitas transmitir. Definimos el estilo y la estructura ideal.',
   },
   {
-    title: 'Dirección visual',
-    text: 'Definimos estética, jerarquía, tono y estructura para que la página no parezca genérica.',
+    title: '2. Diseñamos',
+    text: 'Construimos la web con diseño atractivo, copy persuasivo y desarrollo técnico. Te mostramos avances para que estés al tanto.',
   },
   {
-    title: 'Desarrollo',
-    text: 'Construimos una web rápida, responsive y preparada para funcionar bien en celular y escritorio.',
+    title: '3. Publicamos',
+    text: 'Conectamos WhatsApp, dejamos la página online en tu dominio y hacemos los ajustes finos para que quede impecable.',
   },
   {
-    title: 'Publicación',
-    text: 'Conectamos WhatsApp, dejamos la página online y revisamos los detalles finales antes de entregar.',
+    title: '4. Acompañamos',
+    text: 'Después de la entrega, damos soporte inicial y te orientamos para que puedas sacarle el máximo provecho a tu nueva web.',
   },
 ]
 
+// === ¿POR QUÉ ELEGIRNOS? (MÁS ESPECÍFICO) ===
 export const reasons = [
-  'Diseño pensado para vender',
-  'Web rápida y responsive',
-  'WhatsApp y contacto directo',
-  'SEO básico incluido',
-  'Entrega clara y rápida',
-  'Código limpio y escalable',
+  'Diseño pensado estratégicamente para que el cliente te escriba',
+  'Web rápida, liviana y perfecta en cualquier dispositivo',
+  'WhatsApp y contacto directo sin pérdidas de tiempo',
+  'SEO básico incluido para que aparezcas en tu ciudad',
+  'Cumplimos los plazos acordados sin excusas',
+  'Código limpio que permite crecer sin tener que rehacer todo',
 ]
 
+// === COMPARACIÓN (ANTES / DESPUÉS) ===
 export const comparison = [
   ['Web improvisada', 'Web profesional'],
   ['El cliente no entiende rápido qué ofrecés', 'Tu oferta queda clara en segundos'],
-  ['Depende solo de Instagram o Facebook', 'Tenés un punto de venta propio'],
-  ['Poca confianza antes del contacto', 'Más percepción de marca y seriedad'],
-  ['Consultas desordenadas', 'CTA directo con mensaje listo'],
+  ['Dependes solo de Instagram o Facebook', 'Tenés un punto de venta propio 24/7'],
+  ['Poca confianza antes del contacto', 'Generás más percepción de marca y seriedad'],
+  ['Consultas desordenadas por privado', 'CTA directo con mensaje listo para WhatsApp'],
+  ['Precios ocultos o sorpresas', 'Precio claro y sin costos extra'],
 ]
 
+// === PREGUNTAS FRECUENTES (Agregamos una sobre "No sé de diseño") ===
 export const faqs = [
   {
     question: '¿Cuánto cuesta una landing page?',
     answer:
-      'Depende del alcance, cantidad de secciones y funcionalidades. Primero entendemos tu negocio y después enviamos una propuesta clara.',
+      'Nuestro paquete Esencial parte desde USD 150. Incluye hasta 5 secciones, diseño responsive, WhatsApp integrado y publicación online. Si necesitas más páginas o funcionalidades, tenemos planes Pro y Premium con precios fijos (USD 350 y desde USD 600). Te asesoramos sin compromiso.',
   },
   {
     question: '¿Cuánto tarda el desarrollo?',
     answer:
-      'La entrega estimada es de 5 a 10 días según alcance. Si hay tienda, integraciones o contenido extra, lo definimos antes de empezar.',
+      'La entrega estimada es de 5 a 10 días hábiles. Para el plan Pro solemos entregar en 7 días, y para Premium en 10 días, siempre dependiendo de la complejidad del contenido.',
   },
   {
     question: '¿Incluye dominio y hosting?',
     answer:
-      'Podemos orientarte para elegir dominio y hosting, y también dejar la web publicada. Los costos externos se informan por separado.',
+      'El desarrollo no incluye el costo del dominio ni hosting, pero te guiamos paso a paso para contratarlos (son servicios externos, aproximadamente USD 5-10/mes). Si necesitas, podemos encargarnos de la compra y configuración por un costo adicional mínimo.',
   },
   {
     question: '¿La web funciona en celular?',
     answer:
-      'Sí. Cada página se diseña responsive para verse clara y profesional en celular, tablet y escritorio.',
+      '¡Por supuesto! Todas nuestras páginas se diseñan con enfoque "mobile first", lo que significa que se ven increíbles y son fáciles de usar en celular, tablet y escritorio.',
+  },
+  {
+    question: 'No sé nada de diseño ni tecnología. ¿Puedo igual?',
+    answer:
+      'Claro que sí. Nosotros nos encargamos de todo: desde redactar los textos comerciales hasta elegir las imágenes y colores. Vos solo tenés que contarnos sobre tu negocio y nosotros hacemos el resto.',
   },
   {
     question: '¿Puedo pedir cambios?',
     answer:
-      'Sí. El proceso incluye una instancia de ajustes para ordenar textos, secciones y detalles visuales antes de publicar.',
+      'Sí. El proceso incluye rondas de revisiones (1 para Esencial, 2 para Pro y 3 para Premium) para ajustar textos, secciones y detalles visuales antes de la publicación final. Queremos que quedes 100% conforme.',
   },
   {
     question: '¿Se puede integrar WhatsApp?',
     answer:
-      'Sí. Sumamos botones, mensajes predefinidos y llamados a la acción para recibir consultas directas.',
+      'Es nuestro fuerte. Sumamos botones estratégicos, mensajes predefinidos y llamados a la acción para que recibas consultas directas sin que el cliente tenga que buscar tu número.',
   },
 ]
 
-export const testimonials = [
-  {
-    quote:
-      'La página quedó espléndida. Profesional, clara y muy bien diseñada. Transmitió exactamente la imagen que quería para mi negocio.',
-    name: 'Liliana',
-  },
-  {
-    quote:
-      'Me encantó el resultado. La web se ve moderna, elegante y facilita mucho que los clientes puedan conocer nuestros servicios y contactarnos.',
-    name: 'Luna',
-  },
-]
-
+// === CONTACTO (sin cambios, funciona perfecto) ===
 export const contactCards = [
   {
     title: 'WhatsApp',

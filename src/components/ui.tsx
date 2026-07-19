@@ -1,11 +1,12 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import type { MouseEvent, ReactNode } from 'react'
 import { whatsappLink } from '../content/data'
-import { easePremium } from '../lib/motion'
+import { easePremium } from '../lib/motion' // ← Se usa abajo
 
 export function SectionLabel({ children }: { children: string }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.34em] text-violet-haze">
+    <p className="inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.34em] text-violet-haze">
+      <span aria-hidden="true" className="inline-block h-3 w-[2px] -skew-x-[22deg] bg-violet-haze" />
       {children}
     </p>
   )
@@ -23,7 +24,7 @@ export function SectionHeader({
   return (
     <div className="mx-auto max-w-3xl text-center">
       <SectionLabel>{label}</SectionLabel>
-      <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-5xl">
+      <h2 className="mt-5 font-display text-3xl font-medium leading-tight tracking-[-0.02em] text-white sm:text-5xl">
         {title}
       </h2>
       {text ? (
@@ -35,12 +36,6 @@ export function SectionHeader({
   )
 }
 
-/**
- * Link con dos microinteracciones sutiles:
- * - "Magnético": sigue levemente al cursor dentro del propio botón (desktop, mouse).
- * - "Shine": un brillo diagonal cruza el botón al pasar el mouse.
- * Ambas usan transform/opacity (no width/height/top/left) para no afectar performance.
- */
 function MagneticLink({
   href,
   target,
@@ -87,15 +82,22 @@ function MagneticLink({
         aria-hidden="true"
         initial={{ x: '-130%' }}
         whileHover={{ x: '130%' }}
-        transition={{ duration: 0.65, ease: easePremium }}
-        className={`absolute inset-y-0 left-0 z-0 w-1/3 -skew-x-12 ${shineTone === 'light' ? 'bg-white/25' : 'bg-black/10'
-          }`}
+        transition={{ duration: 0.65, ease: easePremium }} // ← aquí se usa
+        className={`absolute inset-y-0 left-0 z-0 w-1/3 -skew-x-12 ${
+          shineTone === 'light' ? 'bg-white/25' : 'bg-black/10'
+        }`}
       />
     </motion.a>
   )
 }
 
-export function CTAButtons({ compact = false }: { compact?: boolean }) {
+export function CTAButtons({
+  compact = false,
+  primaryLabel = 'Quiero una web para mi negocio',
+}: {
+  compact?: boolean
+  primaryLabel?: string
+}) {
   const size = compact ? 'min-h-12 px-6 py-3 text-sm' : 'min-h-14 px-7 py-4 text-base'
 
   return (
@@ -107,7 +109,7 @@ export function CTAButtons({ compact = false }: { compact?: boolean }) {
         shineTone="dark"
         className={`rounded-full bg-white font-semibold text-ink shadow-glow transition-colors duration-300 hover:bg-violet-haze focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-haze focus-visible:ring-offset-2 focus-visible:ring-offset-ink ${size}`}
       >
-        Quiero una web para mi negocio
+        {primaryLabel}
       </MagneticLink>
       <MagneticLink
         href="#trabajos"

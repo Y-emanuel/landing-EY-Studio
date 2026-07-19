@@ -14,9 +14,10 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
       },
       boxShadow: {
-        glow: '0 0 80px rgba(139, 92, 246, 0.28)',
+        glow: '0 0 20px rgba(139, 92, 246, 0.1)', // aún más reducido
       },
     },
   },

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 :root {
   color-scheme: dark;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   background: #050507;
 }
 
@@ -37,4 +37,119 @@ a {
 ::selection {
   background: rgba(167, 139, 250, 0.35);
   color: #ffffff;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.01em; /* ya lo tienes en algunas clases */
+}
+
+.font-display {
+  font-weight: 500; /* o 600, según prefieras */
+  font-style: normal;
+}
+/* ============================================
+   GLITCH BUTTON (from Uiverse.io by 212004ALJI)
+   Adaptado a la paleta de EY Studio
+   ============================================ */
+@keyframes glitch_4011 {
+  0% {
+    clip-path: inset(50% 50% 50% 50%);
+    transform: translate(0px, -10px);
+  }
+  10% {
+    clip-path: inset(31% 0 40% 0);
+    transform: translate(-10px, 10px);
+  }
+  20% {
+    clip-path: inset(39% 0 15% 0);
+    transform: translate(10px, 0px);
+  }
+  30% {
+    clip-path: inset(45% 0 40% 0);
+    transform: translate(-10px, 10px);
+  }
+  40% {
+    clip-path: inset(45% 0 6% 0);
+    transform: translate(10px, -10px);
+  }
+  50% {
+    clip-path: inset(14% 0 61% 0);
+    transform: translate(-10px, 10px);
+  }
+  60% {
+    clip-path: inset(50% 50% 50% 50%);
+    transform: translate(10px, -10px);
+  }
+  70% {
+    clip-path: inset(39% 0 15% 0);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: inset(31% 0 40% 0);
+    transform: translate(10px, -10px);
+  }
+  90% {
+    clip-path: inset(45% 0 40% 0);
+    transform: translate(-10px, 10px);
+  }
+  100% {
+    clip-path: inset(50% 50% 50% 50%);
+    transform: translate(0);
+  }
+}
+
+.glitch-btn {
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  color: white;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+}
+
+.glitch-btn::after {
+  --move1: inset(50% 50% 50% 50%);
+  --move2: inset(31% 0 40% 0);
+  --move3: inset(39% 0 15% 0);
+  --move4: inset(45% 0 40% 0);
+  --move5: inset(45% 0 6% 0);
+  --move6: inset(14% 0 61% 0);
+  clip-path: var(--move1);
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  color: white;
+  font-weight: 600;
+}
+
+.glitch-btn:hover::after {
+  animation: glitch_4011 0.8s;
+  text-shadow: -3px -3px 0px #a78bfa, 3px 3px 0px #8b5cf6;
+  background-color: transparent;
+  border: 2px solid #a78bfa;
+}
+
+.glitch-btn:hover {
+  text-shadow: -1px -1px 0px #a78bfa, 1px 1px 0px #8b5cf6;
+  background-color: transparent;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  box-shadow: 0px 10px 20px -10px rgba(167, 139, 250, 0.3);
 }

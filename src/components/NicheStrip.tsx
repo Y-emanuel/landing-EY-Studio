@@ -9,8 +9,8 @@ export function NicheStrip() {
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <Reveal>
           <SectionLabel>Para negocios de Argentina y LATAM</SectionLabel>
-          <h2 className="mt-5 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-5xl">
-            Una web profesional cambia cómo te perciben antes de que te escriban.
+          <h2 className="mt-5 max-w-2xl font-display text-3xl font-medium leading-tight tracking-[-0.015em] text-white sm:text-5xl">
+            Una web profesional cambia cómo te perciben antes de que te <span className="text-violet-haze">escriban</span>.
           </h2>
         </Reveal>
         <Reveal delay={0.1} className="rounded-[1.5rem] border border-white/[0.07] bg-gradient-to-br from-white/[0.07] to-white/[0.025] p-6 shadow-2xl shadow-black/20 backdrop-blur sm:p-8">
@@ -21,12 +21,16 @@ export function NicheStrip() {
             {niches.map((item) => (
               <span
                 key={item}
-                className="rounded-full bg-black/28 px-4 py-2 text-sm text-white/70 ring-1 ring-white/[0.07]"
+                className="group relative rounded-full bg-black/28 px-4 py-2 text-sm text-white/70 ring-1 ring-white/[0.07] transition-all hover:bg-violet-pulse/20 hover:text-white hover:ring-violet-haze/50"
               >
                 {item}
+                <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-emerald-400 shadow-glow opacity-0 transition-opacity group-hover:opacity-100" />
               </span>
             ))}
           </div>
+          <p className="mt-4 text-center text-xs text-white/30">
+            ✅ Nichos con alta demanda · Si no ves el tuyo, <a href="#contacto" className="text-violet-haze hover:underline">preguntanos</a>
+          </p>
         </Reveal>
       </div>
     </section>

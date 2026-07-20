@@ -81,11 +81,8 @@ export const deliverables = [
   'Soporte y ajustes iniciales post-entrega',
 ]
 
-// ==============================================================
-// PROYECTOS — Reemplazamos "Barbería Premium" por "Barbería Élite"
-// ==============================================================
 export const projects = [
-  // ✅ REEMPLAZAMOS "Barbería Premium" por "Barbería Élite"
+  // ✅ Barbería Élite
   {
     kind: 'barber' as const,
     title: 'Barbería Élite',
@@ -95,7 +92,7 @@ export const projects = [
     chips: ['Corte', 'Barba', 'Estilo'],
     note: 'Demo funcional',
     link: 'https://barber-demo-dusky.vercel.app/',
-    image: 'src/assets/landing-barber.webp', // 📸 Imagen de portada
+    image: '/assets/images/landing-barber.webp', // ✅ Ruta corregida
   },
   {
     kind: 'esthetic' as const,
@@ -115,7 +112,7 @@ export const projects = [
     chips: ['Funcional', 'Musculación', 'Clases'],
     note: 'Horarios de clase a la vista',
   },
-  // ✅ Clínica Dental Sonrisa (ya existente)
+  // ✅ Clínica Dental Sonrisa
   {
     kind: 'landing' as const,
     title: 'Clínica Dental Sonrisa',
@@ -125,7 +122,7 @@ export const projects = [
     chips: ['Diseño UI/UX', 'Landing Page', 'WhatsApp API'],
     note: 'Demo funcional',
     link: 'https://clinica-odontologica-demo.vercel.app/',
-    image: 'src/assets/landing-clinica.webp',
+    image: '/assets/images/landing-clinica.webp', // ✅ Ruta corregida
   },
 ]
 

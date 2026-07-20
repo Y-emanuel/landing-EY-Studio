@@ -1,4 +1,4 @@
-type NicheKind = 'barber' | 'esthetic' | 'gym' | 'electrician'
+type NicheKind = 'barber' | 'esthetic' | 'gym' | 'electrician' | 'landing' | 'mockup'
 
 function Chip({ children, active }: { children: string; active?: boolean }) {
   return (
@@ -98,20 +98,90 @@ function ElectricianBody({ chips }: { chips: string[] }) {
   )
 }
 
-export function NicheMock({
-  kind,
+// ✅ Nuevo componente para mostrar imagen personalizada (con overlay de chips/note/cta)
+function ImageMock({
+  image,
   cta,
   chips,
   note,
 }: {
-  kind: NicheKind
+  image: string
   cta: string
   chips: string[]
   note: string
 }) {
   return (
     <div className="relative overflow-hidden rounded-[1.35rem] border border-white/[0.08] bg-[#09080f] shadow-2xl shadow-black/25">
-      {/* Barra superior simulando navegador */}
+      {/* Barra simulando navegador */}
+      <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.045] px-4 py-3">
+        <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+        <span className="ml-auto rounded-full bg-black/30 px-3 py-1 text-[11px] text-white/45">
+          🖥️ preview
+        </span>
+      </div>
+
+      <div className="relative min-h-52 overflow-hidden">
+        <img
+          src={image}
+          alt="Mockup"
+          className="h-full w-full object-cover object-top"
+          loading="lazy"
+        />
+        {/* Overlay para mejorar legibilidad */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+        {/* Chips en la parte superior */}
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+          {chips.map((chip) => (
+            <span
+              key={chip}
+              className="rounded-full bg-black/60 backdrop-blur-sm px-3 py-1.5 text-[11px] text-white/90 ring-1 ring-white/10"
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA y nota en la parte inferior */}
+        <div className="absolute bottom-4 left-4 flex flex-wrap items-center gap-3">
+          <span className="inline-flex rounded-full bg-gradient-to-r from-violet-haze to-violet-pulse px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-violet-haze/30">
+            {cta}
+          </span>
+          <span className="rounded-full border border-violet-haze/30 bg-violet-pulse/10 px-3 py-2 text-xs text-violet-haze backdrop-blur-sm">
+            {note}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ==============================================================
+// Componente principal NicheMock
+// ==============================================================
+export function NicheMock({
+  kind,
+  cta,
+  chips,
+  note,
+  image,
+}: {
+  kind: NicheKind
+  cta: string
+  chips: string[]
+  note: string
+  image?: string // 🖼️ imagen personalizada (opcional)
+}) {
+  // Si hay imagen personalizada, la mostramos
+  if (image) {
+    return <ImageMock image={image} cta={cta} chips={chips} note={note} />
+  }
+
+  // Si no hay imagen, usamos el mockup generado según el kind
+  return (
+    <div className="relative overflow-hidden rounded-[1.35rem] border border-white/[0.08] bg-[#09080f] shadow-2xl shadow-black/25">
       <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.045] px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
         <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
@@ -122,21 +192,19 @@ export function NicheMock({
       </div>
 
       <div className="relative min-h-52 overflow-hidden p-5">
-        {/* Efectos de luz */}
         <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-violet-pulse/25 blur-3xl" />
         <div className="absolute -bottom-12 left-8 h-36 w-36 rounded-full bg-violet-deep/50 blur-3xl" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
         <div className="relative">
-          {/* Título de la demo */}
           <div className="h-3 w-28 rounded-full bg-violet-haze/65 shadow-glow" />
           <div className="mt-4 h-9 w-4/5 rounded-xl bg-white/[0.1]" />
           <div className="mt-3 h-8 w-2/3 rounded-xl bg-white/[0.06]" />
 
-          {kind === 'barber' ? <BarberBody chips={chips} /> : null}
-          {kind === 'esthetic' ? <EstheticBody chips={chips} /> : null}
-          {kind === 'gym' ? <GymBody chips={chips} /> : null}
-          {kind === 'electrician' ? <ElectricianBody chips={chips} /> : null}
+          {kind === 'barber' && <BarberBody chips={chips} />}
+          {kind === 'esthetic' && <EstheticBody chips={chips} />}
+          {kind === 'gym' && <GymBody chips={chips} />}
+          {kind === 'electrician' && <ElectricianBody chips={chips} />}
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <span className="inline-flex rounded-full bg-gradient-to-r from-violet-haze to-violet-pulse px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-violet-haze/30">

@@ -34,7 +34,13 @@ export function Projects() {
               className="group overflow-hidden rounded-[1.6rem] border border-white/[0.065] bg-gradient-to-br from-white/[0.065] via-[#0e0b14] to-black/45 shadow-sm shadow-black/5 transition-all hover:border-violet-haze/40 hover:shadow-violet-pulse/5"
             >
               <div className="p-4">
-                <NicheMock kind={project.kind} cta={project.cta} chips={project.chips} note={project.note} />
+                <NicheMock
+                  kind={project.kind}
+                  cta={project.cta}
+                  chips={project.chips}
+                  note={project.note}
+                  image={project.image}
+                />
               </div>
               <div className="p-6 pt-2 sm:p-7 sm:pt-3">
                 <p className="text-xs uppercase tracking-[0.22em] text-violet-haze">{project.tag}</p>
@@ -42,14 +48,15 @@ export function Projects() {
                   {project.title}
                 </h3>
                 <p className="mt-4 max-w-xl text-base leading-8 text-white/64">{project.text}</p>
+
                 <motion.a
-                  href={whatsappLink}
+                  href={project.link || whatsappLink}
                   target="_blank"
                   rel="noreferrer"
                   whileHover={{ x: 4 }}
                   className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-violet-haze/80 hover:text-violet-haze transition-colors"
                 >
-                  Ver proyecto completo →
+                  {project.cta || 'Ver proyecto completo →'}
                 </motion.a>
               </div>
             </motion.article>

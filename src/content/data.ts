@@ -1,19 +1,18 @@
 const whatsappMessage =
   'Hola Emanuel, vi tu web y quiero una landing page profesional para mi negocio. Me gustaría saber opciones, tiempos y presupuesto.'
 
-export const whatsappLink = `https://wa.me/5491154827168?text=${encodeURIComponent(whatsappMessage)}`
+export const whatsappLink = `https://wa.me/5491157653009?text=${encodeURIComponent(whatsappMessage)}`
 export const emailLink = 'mailto:emanuelybalo.contacto@gmail.com'
 export const instagramLink = 'https://instagram.com/emanuelybalo.tech'
 
 export const navLinks: [string, string][] = [
   ['Servicios', '#servicios'],
-  ['Casos', '#trabajos'], // Cambié "Demos" por "Casos" para que suene más profesional
+  ['Casos', '#trabajos'],
   ['Paquetes', '#paquetes'],
   ['Proceso', '#proceso'],
   ['Contacto', '#contacto'],
 ]
 
-// === STATS DEL HERO (más directos) ===
 export const proofStats = [
   { value: '5 a 10 días', label: 'Entrega rápida', icon: 'calendar' },
   { value: '100%', label: 'Adaptado a celular', icon: 'mobile' },
@@ -21,19 +20,17 @@ export const proofStats = [
   { value: 'SEO Incluido', label: 'Google te encuentra', icon: 'seo' },
 ]
 
-// === NICHIOS (sin cambios, pero los dejamos listos) ===
 export const niches = [
   'Emprendimientos',
   'Locales comerciales',
   'Profesionales',
-  'Gimnasios', 
-  'Estéticas', 
+  'Gimnasios',
+  'Estéticas',
   'Servicios técnicos',
   'Barberías',
   'Servicios a domicilio',
 ]
 
-// === SERVICIOS (copy más persuasivo y específico) ===
 export const services = [
   {
     title: 'Landing Pages',
@@ -73,7 +70,6 @@ export const services = [
   },
 ]
 
-// === ENTREGABLES (más claros y con valor añadido) ===
 export const deliverables = [
   'Diseño visual premium y moderno',
   'Estructura armada para convertir (orientada a CTA)',
@@ -85,16 +81,21 @@ export const deliverables = [
   'Soporte y ajustes iniciales post-entrega',
 ]
 
-// === PROYECTOS DEMO (sin cambios, se ven bien) ===
+// ==============================================================
+// PROYECTOS — Reemplazamos "Barbería Premium" por "Barbería Élite"
+// ==============================================================
 export const projects = [
+  // ✅ REEMPLAZAMOS "Barbería Premium" por "Barbería Élite"
   {
     kind: 'barber' as const,
-    title: 'Barbería Premium',
+    title: 'Barbería Élite',
     tag: 'Demo comercial',
-    text: 'Landing enfocada en reservas, ubicación, servicios, estilo visual y contacto rápido por WhatsApp.',
-    cta: 'Reservar turno',
-    chips: ['Corte', 'Barba', 'Combo'],
-    note: 'Turnos con horario visible',
+    text: 'Landing page para una barbería de élite, con agendamiento de turnos integrado vía WhatsApp. Diseño oscuro y elegante con acentos dorados.',
+    cta: 'Ver sitio',
+    chips: ['Corte', 'Barba', 'Estilo'],
+    note: 'Demo funcional',
+    link: 'https://barber-demo-dusky.vercel.app/',
+    image: 'src/assets/landing-barber.webp', // 📸 Imagen de portada
   },
   {
     kind: 'esthetic' as const,
@@ -114,30 +115,33 @@ export const projects = [
     chips: ['Funcional', 'Musculación', 'Clases'],
     note: 'Horarios de clase a la vista',
   },
+  // ✅ Clínica Dental Sonrisa (ya existente)
   {
-    kind: 'electrician' as const,
-    title: 'Electricista Pro',
+    kind: 'landing' as const,
+    title: 'Clínica Dental Sonrisa',
     tag: 'Demo comercial',
-    text: 'Página orientada a urgencias, zonas de trabajo, servicios principales y contacto inmediato.',
-    cta: 'Pedir urgencia',
-    chips: ['Urgencias', 'Zonas', 'Servicios'],
-    note: 'Contacto inmediato por WhatsApp',
+    text: 'Landing page profesional para una clínica odontológica, con agendamiento de turnos integrado vía WhatsApp. Diseño moderno y orientado a la conversión.',
+    cta: 'Ver sitio',
+    chips: ['Diseño UI/UX', 'Landing Page', 'WhatsApp API'],
+    note: 'Demo funcional',
+    link: 'https://clinica-odontologica-demo.vercel.app/',
+    image: 'src/assets/landing-clinica.webp',
   },
 ]
 
-// === PAQUETES (MEJORADOS CON PRECIOS Y BENEFICIOS CLAROS) ===
 export const packages = [
   {
     name: 'Landing Esencial',
     badge: 'Para arrancar',
     price: 'USD 150',
-    description: 'Presencia profesional sin complicaciones. Ideal para negocios que están en redes y quieren su primer punto de venta propio.',
+    description:
+      'Presencia profesional sin complicaciones. Ideal para negocios que están en redes y quieren su primer punto de venta propio.',
     items: [
       '1 página (hasta 5 secciones)',
       'Diseño responsive (celular/tablet/escritorio)',
       'WhatsApp integrado con mensaje automático',
       'Publicación online y SEO básico',
-      '1 ronda de revisiones'
+      '1 ronda de revisiones',
     ],
     cta: 'Quiero mi Esencial',
     highlighted: false,
@@ -146,7 +150,8 @@ export const packages = [
     name: 'Landing Pro',
     badge: '⭐ Más elegida',
     price: 'USD 350',
-    description: 'Para negocios que quieren destacar, mostrar más servicios y tener un embudo de conversión pensado para redes sociales o Google Ads.',
+    description:
+      'Para negocios que quieren destacar, mostrar más servicios y tener un embudo de conversión pensado para redes sociales o Google Ads.',
     items: [
       '1 página extendida (hasta 8 secciones)',
       'Copy comercial redactado para vender',
@@ -154,16 +159,17 @@ export const packages = [
       'Formulario de contacto + WhatsApp',
       'Optimización SEO avanzada (local)',
       '2 rondas de revisiones',
-      'Entrega en 7 días'
+      'Entrega en 7 días',
     ],
     cta: 'Quiero el Pro',
-    highlighted: true, // Este será el plan destacado visualmente
+    highlighted: true,
   },
   {
     name: 'Web Premium',
     badge: 'Máxima calidad',
     price: 'Desde USD 600',
-    description: 'Para marcas que necesitan una presencia digital robusta, con múltiples páginas y funcionalidades a medida para crecer.',
+    description:
+      'Para marcas que necesitan una presencia digital robusta, con múltiples páginas y funcionalidades a medida para crecer.',
     items: [
       'Hasta 5 páginas (Inicio, Nosotros, Servicios, Blog, Contacto)',
       'Diseño 100% personalizado y exclusivo',
@@ -171,7 +177,7 @@ export const packages = [
       'Panel de administración sencillo (para editar textos)',
       'Configuración de Google Analytics',
       'Soporte prioritario por 30 días',
-      '3 rondas de revisiones'
+      '3 rondas de revisiones',
     ],
     cta: 'Consultar Premium',
     glitch: true,
@@ -179,7 +185,6 @@ export const packages = [
   },
 ]
 
-// === PROCESO DE TRABAJO (AGREGAMOS UN 4TO PASO) ===
 export const process = [
   {
     title: '1. Nos contás',
@@ -199,7 +204,6 @@ export const process = [
   },
 ]
 
-// === ¿POR QUÉ ELEGIRNOS? (MÁS ESPECÍFICO) ===
 export const reasons = [
   'Diseño pensado estratégicamente para que el cliente te escriba',
   'Web rápida, liviana y perfecta en cualquier dispositivo',
@@ -209,7 +213,6 @@ export const reasons = [
   'Código limpio que permite crecer sin tener que rehacer todo',
 ]
 
-// === COMPARACIÓN (ANTES / DESPUÉS) ===
 export const comparison = [
   ['Web improvisada', 'Web profesional'],
   ['El cliente no entiende rápido qué ofrecés', 'Tu oferta queda clara en segundos'],
@@ -219,7 +222,6 @@ export const comparison = [
   ['Precios ocultos o sorpresas', 'Precio claro y sin costos extra'],
 ]
 
-// === PREGUNTAS FRECUENTES (Agregamos una sobre "No sé de diseño") ===
 export const faqs = [
   {
     question: '¿Cuánto cuesta una landing page?',
@@ -258,11 +260,10 @@ export const faqs = [
   },
 ]
 
-// === CONTACTO (sin cambios, funciona perfecto) ===
 export const contactCards = [
   {
     title: 'WhatsApp',
-    value: '+54 9 11 5482-7168',
+    value: '+54 9 11 5765-3009',
     text: 'Pedir presupuesto con mensaje listo.',
     href: whatsappLink,
   },

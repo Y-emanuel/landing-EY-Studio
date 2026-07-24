@@ -1,122 +1,174 @@
 import { motion } from 'framer-motion'
-import studioHero from '../assets/ey-studio-hero.png'
-import { proofStats } from '../content/data'
-import { AnimatedCounter } from './motion/AnimatedCounter'
-import { staggerContainer, slideUp, scaleIn } from '../lib/motion'
+import { staggerContainer, slideUp} from '../lib/motion'
 import { CTAButtons } from './ui'
-import { ParallaxBackground } from './motion/ParallaxBackground'
 import { FloatingOrbs } from './motion/FloatingOrbs'
 
-// Iconos SVG para los stats
-const statIcons: Record<string, React.ReactNode> = {
-  calendar: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-violet-haze">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
-  ),
-  mobile: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-violet-haze">
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-      <line x1="12" y1="18" x2="12.01" y2="18" />
-    </svg>
-  ),
-  whatsapp: (
-    <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-      <path
-        d="M12 2C6.48 2 2 6.48 2 12c0 1.93.56 3.72 1.55 5.25L2 22l4.75-1.55A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"
-        fill="#25D366"
-      />
-      <path
-        d="M17.1 14.4c-.3-.15-1.7-.85-1.95-.95-.25-.1-.45-.15-.65.15-.2.3-.75.95-.95 1.15-.2.2-.4.2-.7.05-1.2-.6-2.2-1.5-2.9-2.5-.2-.3-.3-.6-.3-.8 0-.2.1-.4.2-.6.1-.2.2-.4.25-.6.05-.2 0-.4-.05-.6-.05-.2-.45-1.1-.65-1.5-.2-.4-.35-.4-.5-.4h-.45c-.15 0-.4.05-.6.25-.2.2-.8.8-.8 1.95s.85 2.3.95 2.45c.1.15 1.65 2.5 4 3.45.55.2 1.05.35 1.45.45.6.2 1.15.15 1.6.1.5-.05 1.5-.6 1.7-1.2.2-.6.2-1.1.15-1.2-.05-.1-.15-.15-.3-.2z"
-        fill="white"
-      />
-    </svg>
-  ),
-  seo: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-cyan-400">
-      <circle cx="11" cy="11" r="8" />
-      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      <path d="M11 8v3l2 2" />
-    </svg>
-  ),
-}
+// ============================================================
+// IMÁGENES DEL MOCKUP
+// ============================================================
+const clinicaMockupImage = '/assets/images/landing-clinica.webp'
+const clinicaMockupImageMobile = '/assets/images/landing-clinica-movil.webp'
 
+// ============================================================
+// COMPONENTE HERO VISUAL (con versión responsiva)
+// ============================================================
 function HeroVisual() {
   return (
-    <motion.div variants={scaleIn} className="relative mx-auto w-full max-w-[630px]">
-      <motion.div
-        animate={{ opacity: [0.55, 0.85, 0.55] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -left-10 top-10 h-48 w-48 rounded-full bg-violet-pulse/20 blur-3xl"
-      />
-      <motion.div
-        animate={{ opacity: [0.85, 0.55, 0.85] }}
-        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -right-6 bottom-8 h-64 w-64 rounded-full bg-violet-deep/55 blur-3xl"
-      />
-
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[#0b0a12]/90 p-3 shadow-2xl shadow-violet-pulse/20 backdrop-blur-xl">
-        <div className="relative overflow-hidden rounded-[1.5rem]">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.92, y: 20 }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        y: [0, -12, 0],
+      }}
+      transition={{
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],
+        y: {
+          duration: 6,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          repeatType: 'loop',
+        },
+      }}
+      className="relative mx-auto w-full max-w-[630px]"
+    >
+      {/* ============================================================
+          VERSIÓN MÓVIL (sin marco de navegador, imagen grande)
+          ============================================================ */}
+      <div className="block sm:hidden">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[rgba(26,26,38,0.4)]">
           <img
-            src={studioHero}
-            alt="Mockup de landing page profesional"
-            className="h-[420px] w-full object-cover opacity-85"
+            src={clinicaMockupImageMobile}
+            alt="Demo de landing page para Clínica Dental Sonrisa - EyStudio (móvil)"
+            className="h-auto w-full object-cover"
+            loading="lazy"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,7,0.08),rgba(5,5,7,0.84)),radial-gradient(circle_at_72%_20%,rgba(167,139,250,0.22),transparent_18rem)]" />
-          
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="absolute left-6 top-6 rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3 backdrop-blur-xl"
-          >
-            <p className="text-xs uppercase tracking-[0.22em] text-violet-haze">📱 100% Responsive</p>
-          </motion.div>
 
+          {/* Badge superior izquierdo */}
+          <div className="absolute left-2 top-2 rounded-xl border border-white/10 bg-black/60 px-2 py-1 backdrop-blur-sm">
+            <p className="text-[8px] font-medium text-violet-haze">🦷 Demo · Clínica Dental</p>
+          </div>
+
+          {/* Tarjeta flotante +30% (abajo izquierda) */}
+          <div className="absolute bottom-2 left-2 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-2 py-1.5 backdrop-blur-sm flex items-center gap-1">
+            <svg className="h-3 w-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+            <span className="text-[10px] font-bold text-white">+30%</span>
+            <span className="text-[8px] text-[#9CA3AF]">Pacientes</span>
+          </div>
+
+          {/* Tarjeta flotante -80% (abajo derecha) */}
+          <div className="absolute bottom-2 right-2 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-2 py-1.5 backdrop-blur-sm flex items-center gap-1">
+            <svg className="h-3 w-3 text-[#25D366]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <span className="text-[10px] font-bold text-white">-80%</span>
+            <span className="text-[8px] text-[#9CA3AF]">No-shows</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================
+          VERSIÓN DESKTOP (con marco de navegador, glassmorphism)
+          ============================================================ */}
+      <div className="hidden sm:block">
+        {/* Glow decorativo detrás del mockup */}
+        <div className="absolute -inset-8 rounded-full bg-[#7C3AED]/15 blur-3xl pointer-events-none" />
+
+        {/* Tarjeta flotante +30% Pacientes (arriba derecha) */}
+        <motion.div
+          initial={{ opacity: 0, x: 20, y: -10 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6, ease: 'easeOut' }}
+          className="absolute -right-4 -top-4 z-20 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-4 py-2.5 backdrop-blur-xl shadow-lg shadow-black/30 flex items-center gap-2"
+        >
+          <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          </svg>
+          <span className="text-sm font-bold text-white">+30%</span>
+          <span className="text-xs text-[#9CA3AF]">Pacientes</span>
+        </motion.div>
+
+        {/* Tarjeta flotante -80% No-shows (abajo izquierda) */}
+        <motion.div
+          initial={{ opacity: 0, x: -20, y: 10 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6, ease: 'easeOut' }}
+          className="absolute -bottom-4 -left-4 z-20 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-4 py-2.5 backdrop-blur-xl shadow-lg shadow-black/30 flex items-center gap-2"
+        >
+          <svg className="w-5 h-5 text-[#25D366]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <span className="text-sm font-bold text-white">-80%</span>
+          <span className="text-xs text-[#9CA3AF]">No-shows</span>
+        </motion.div>
+
+        {/* Contenedor principal del mockup (glassmorphism) */}
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(26,26,38,0.6)] p-3 shadow-2xl shadow-black/50 backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-[1.5rem]">
+            <img
+              src={clinicaMockupImage}
+              alt="Demo de landing page para Clínica Dental Sonrisa - EyStudio"
+              className="h-[420px] w-full object-cover object-top"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,7,0.08),rgba(5,5,7,0.84)),radial-gradient(circle_at_72%_20%,rgba(167,139,250,0.22),transparent_18rem)]" />
+
+            {/* Badges flotantes (en línea en desktop) */}
+            <div className="absolute left-6 top-6 flex flex-row gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3 backdrop-blur-xl"
+              >
+                <p className="text-xs font-medium uppercase tracking-[0.22em] text-violet-haze">🦷 Demo · Clínica Dental</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+                className="rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3 backdrop-blur-xl"
+              >
+                <p className="text-xs font-medium uppercase tracking-[0.22em] text-amber-400">⚡ Proyecto demo</p>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Tarjeta inferior con métricas (desktop) */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            className="absolute right-6 top-6 rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3 backdrop-blur-xl"
+            transition={{ delay: 0.62, duration: 0.5 }}
+            className="absolute bottom-6 left-6 right-6 rounded-[1.35rem] border border-white/[0.09] bg-[#08070d]/82 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl"
           >
-            <p className="text-xs uppercase tracking-[0.22em] text-green-400">💬 WhatsApp Directo</p>
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-sm font-semibold text-white">🦷 Clínica Dental · Demo</p>
+              <span className="rounded-full bg-violet-pulse/20 px-3 py-1 text-xs text-violet-haze">Ver proyecto</span>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-white/70">Landing con sistema de turnos por WhatsApp para el sector odontológico.</p>
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {['Turnos 24/7', 'Recordatorios', 'Diseño premium'].map((item) => (
+                <span key={item} className="rounded-xl bg-white/5 px-3 py-2 text-center text-xs text-[#9CA3AF] border border-white/5">{item}</span>
+              ))}
+            </div>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.62, duration: 0.5 }}
-          className="absolute bottom-6 left-6 right-6 rounded-[1.35rem] border border-white/[0.09] bg-[#08070d]/82 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl"
-        >
-          <div className="flex items-center justify-between gap-4">
-            <p className="text-sm font-semibold text-white">📄 Landing Page Profesional</p>
-            <span className="rounded-full bg-violet-pulse/20 px-3 py-1 text-xs text-violet-haze">Entrega 5–10 días</span>
-          </div>
-          <p className="mt-3 text-sm leading-6 text-white/70">Diseño que guía al cliente directo a tu WhatsApp.</p>
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            {['Diseño Premium', 'SEO Básico', 'Sin comisiones'].map((item) => (
-              <span key={item} className="rounded-xl bg-white/[0.06] px-3 py-2 text-center text-xs text-white/70">{item}</span>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </motion.div>
   )
 }
 
+// ============================================================
+// COMPONENTE HERO PRINCIPAL
+// ============================================================
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-white/[0.08]">
-      {/* Fondo con parallax */}
-      <ParallaxBackground image={studioHero} speed={0.3} className="opacity-100" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_15%,rgba(139,92,246,0.34),transparent_32rem),linear-gradient(90deg,#050507_0%,rgba(5,5,7,0.96)_48%,rgba(5,5,7,0.74)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-ink to-transparent" />
-      
-      {/* Orbes flotantes decorativos */}
+    <section className="relative overflow-hidden border-b border-white/5 bg-[#0A0A0F]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(99,91,255,0.15),transparent_50%),radial-gradient(circle_at_30%_70%,rgba(124,58,237,0.08),transparent_50%),#0A0A0F]" />
+      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#0A0A0F] to-transparent" />
       <FloatingOrbs />
 
       <motion.div
@@ -126,61 +178,85 @@ export function Hero() {
         variants={staggerContainer}
         className="relative z-10 mx-auto grid min-h-screen w-full max-w-7xl items-center gap-12 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-10"
       >
+        {/* ===== COLUMNA IZQUIERDA: TEXTO ===== */}
         <div className="max-w-4xl">
+          {/* Badge de nicho */}
           <motion.div
             variants={slideUp}
-            className="mb-8 inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.045] px-4 py-2 text-xs uppercase tracking-[0.28em] text-violet-haze backdrop-blur"
+            className="mb-8 inline-flex items-center rounded-full border border-[#7C3AED]/30 bg-[rgba(99,91,255,0.15)] px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-white backdrop-blur sm:text-xs"
           >
-            ⚡ DISEÑO WEB PREMIUM · ARGENTINA Y LATAM
+            ⚡ ESPECIAL PARA ODONTÓLOGOS Y CLÍNICAS DENTALES EN ARGENTINA Y LATAM
           </motion.div>
 
+          {/* Título H1 con gradiente */}
           <motion.h1
             variants={slideUp}
-            className="max-w-5xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.01em] text-white sm:text-6xl lg:text-7xl"
+            className="max-w-5xl font-outfit text-3xl font-bold leading-[1.05] tracking-[-0.01em] text-white sm:text-4xl lg:text-6xl"
           >
-            Convertí cada visita en <span className="italic text-violet-haze">un mensaje de WhatsApp</span>
+            Convertí tu clínica dental en{' '}
+            <span className="bg-gradient-to-r from-[#635BFF] via-[#7C3AED] to-[#3B82F6] bg-clip-text text-transparent">
+              la primera opción
+            </span>{' '}
+            de tu zona
           </motion.h1>
 
           <motion.p
             variants={slideUp}
-            className="mt-7 max-w-2xl text-lg leading-8 text-white/72 sm:text-xl sm:leading-9"
+            className="mt-7 max-w-2xl text-base leading-7 text-[#9CA3AF] sm:text-lg sm:leading-9"
           >
-            Diseño profesional, integración directa con WhatsApp y entrega en 5 días.
-            <span className="font-semibold text-white"> Desde USD 150</span>, sin costos ocultos.
+            Landing Page profesional diseñada específicamente para odontólogos. Incluye sistema de agendamiento directo a WhatsApp, recordatorios automáticos de turnos y SEO Local para posicionar en Google.{' '}
+            <span className="font-semibold text-white">Desde USD 150</span>, sin costos ocultos.
           </motion.p>
 
-          <motion.div variants={slideUp} className="mt-10">
-            <CTAButtons primaryLabel="Quiero mi landing →" />
+          {/* Lista de 4 beneficios con tildes */}
+          <motion.div
+            variants={slideUp}
+            className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg"
+          >
+            {[
+              'Atención 24/7',
+              'Cero ausentismo',
+              'Posicionamiento Local',
+              'Recordatorios automáticos'
+            ].map((benefit) => (
+              <div key={benefit} className="flex items-center gap-2 text-xs text-[#D1D5DB] sm:text-sm">
+                <svg className="h-4 w-4 text-[#635BFF] flex-shrink-0 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                {benefit}
+              </div>
+            ))}
           </motion.div>
 
-          <motion.p variants={slideUp} className="mt-4 text-sm text-white/40">
-            ✅ Sin permanencia · Precio fijo · Garantía de satisfacción
+          {/* CTAs */}
+          <motion.div variants={slideUp} className="mt-8">
+            <CTAButtons primaryLabel="Quiero mi Landing Page" />
+          </motion.div>
+
+          {/* Micro-copy debajo del botón */}
+          <motion.p variants={slideUp} className="mt-3 text-xs text-[#6B7280] flex items-center gap-2">
+            <svg className="h-3 w-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            Entrega express en 5 a 10 días • Sin conocimientos técnicos requeridos
           </motion.p>
 
-          {/* Stats en grid 2x2 */}
-          <motion.div variants={slideUp} className="mt-11 grid grid-cols-2 gap-3 max-w-2xl">
-            {proofStats.map((stat) => {
-              const bgColor = stat.icon === 'whatsapp' ? 'bg-emerald-500/20' : stat.icon === 'seo' ? 'bg-cyan-500/20' : 'bg-violet-haze/20'
-              return (
-                <div
-                  key={stat.label}
-                  className="group flex items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.04] px-3 py-2.5 transition-all hover:bg-white/[0.07] hover:border-violet-haze/40 hover:shadow-lg hover:shadow-violet-pulse/5"
-                >
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${bgColor}`}>
-                    {statIcons[stat.icon as keyof typeof statIcons] || null}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white sm:text-base">
-                      {stat.value === '100%' ? <AnimatedCounter value={100} suffix="%" /> : stat.value}
-                    </p>
-                    <p className="text-[10px] uppercase tracking-wider text-white/50 sm:text-xs">{stat.label}</p>
-                  </div>
-                </div>
-              )
-            })}
+          {/* Experiencia interactiva */}
+          <motion.div
+            variants={slideUp}
+            className="flex items-center gap-2 pt-4 text-xs text-[#9CA3AF] sm:text-sm"
+          >
+            <svg className="h-4 w-4 text-[#635BFF] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+            </svg>
+            <span>
+              Probá la experiencia interactiva de agendamiento como si fueras un paciente.
+              <a href="#agendamiento" className="text-[#635BFF] hover:underline ml-1">Probar ahora →</a>
+            </span>
           </motion.div>
         </div>
 
+        {/* ===== COLUMNA DERECHA: MOCKUP VISUAL ===== */}
         <HeroVisual />
       </motion.div>
     </section>

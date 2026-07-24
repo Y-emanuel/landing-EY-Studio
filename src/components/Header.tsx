@@ -1,12 +1,25 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useState, useRef } from 'react'
-import { navLinks, whatsappLink } from '../content/data'
+import { whatsappLink } from '../content/constants'
 import { easePremium } from '../lib/motion'
 
+// ============================================================
+// ENLACES DE NAVEGACIÓN
+// ============================================================
+const navLinks: [string, string][] = [
+  ['Beneficios', '#beneficios'],
+  ['Casos de Éxito', '#casos'],
+  ['Precios', '#precios'],
+  ['FAQ', '#faq'],
+]
+
+// ============================================================
+// COMPONENTE PRINCIPAL
+// ============================================================
 export function Header() {
   const [open, setOpen] = useState(false)
-  const [activeLink, setActiveLink] = useState(navLinks[0]?.[0] || 'Servicios')
-  
+  const [activeLink, setActiveLink] = useState(navLinks[0]?.[0] || 'Beneficios')
+
   const headerRef = useRef<HTMLElement>(null)
   const cursorX = useMotionValue(0)
   const cursorY = useMotionValue(0)
@@ -55,6 +68,7 @@ export function Header() {
       className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
     >
       <div className="w-full max-w-7xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm shadow-black/5 transition-shadow duration-300 hover:shadow-violet-pulse/5 relative overflow-hidden">
+        {/* Glow que sigue al mouse */}
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{
@@ -63,8 +77,9 @@ export function Header() {
         />
 
         <div className="flex items-center justify-between px-3 py-2 md:px-5 md:py-2.5">
+          {/* Logo */}
           <a
-            href="#top"
+            href="#hero"
             className="group flex items-center gap-2 text-sm font-semibold tracking-[0.28em] text-white whitespace-nowrap"
             onClick={() => setOpen(false)}
           >
@@ -75,6 +90,7 @@ export function Header() {
             EY STUDIO
           </a>
 
+          {/* Menú Desktop */}
           <nav className="hidden md:flex items-center gap-0.5 relative">
             {navLinks.map(([label, href]) => (
               <a
@@ -95,10 +111,11 @@ export function Header() {
             ))}
           </nav>
 
+          {/* Acciones derecha */}
           <div className="flex items-center gap-2">
             <span className="hidden items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400 sm:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Disponible
+              Agenda Abierta · Cupos PROMO280
             </span>
 
             <motion.a
@@ -109,7 +126,7 @@ export function Header() {
               whileTap={{ scale: 0.97 }}
               className="flex min-h-10 items-center rounded-full bg-gradient-to-r from-violet-haze to-violet-pulse px-4 text-sm font-medium text-white shadow-sm shadow-violet-haze/10 transition-all hover:shadow-violet-haze/20 whitespace-nowrap"
             >
-              Presupuesto
+              Prueba Gratis 7 Días
             </motion.a>
 
             <button
@@ -140,6 +157,7 @@ export function Header() {
           </div>
         </div>
 
+        {/* Menú Mobile */}
         <motion.nav
           initial={false}
           animate={{ height: open ? 'auto' : 0 }}

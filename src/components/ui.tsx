@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import type { MouseEvent, ReactNode } from 'react'
-import { whatsappLink } from '../content/data'
+import { whatsappLink } from '../content/constants'
 import { easePremium } from '../lib/motion' // ← Se usa abajo
 
 export function SectionLabel({ children }: { children: string }) {

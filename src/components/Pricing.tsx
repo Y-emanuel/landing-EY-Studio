@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { SectionLabel } from './ui'
+import { whatsappLink } from '../content/constants'
 
 // ============================================================
 // SVG ICONS
@@ -27,7 +28,7 @@ const ClockIcon = () => (
 // ============================================================
 // TIPOS
 // ============================================================
-type BadgeType = 'trial' | 'promo'
+type BadgeType = 'esencial' | 'pro'
 
 interface PricingBadgeProps {
   badge: {
@@ -48,7 +49,6 @@ interface PricingPlan {
   description: string
   price: string
   priceNote: string
-  originalPrice?: string
   deliveryTime: string
   features: string[]
   maintenance: {
@@ -62,101 +62,89 @@ interface PricingPlan {
 }
 
 // ============================================================
-// DATOS DE PRECIOS (con `as const` para forzar literales)
+// DATOS DE PRECIOS (actualizados)
 // ============================================================
 const pricingData: PricingPlan[] = [
   {
     id: 'esencial',
-    name: 'Esencial',
+    name: 'Plan Esencial — Sistema de Captación Directa',
     badge: {
-      label: '🎁 7 Días de Prueba Gratis',
-      subLabel: 'Sin costo inicial',
-      type: 'trial' as const,
+      label: '🚀 Entrega Exprés',
+      subLabel: 'Cupos limitados por mes',
+      type: 'esencial',
     },
-    description: 'La solución ideal para profesionales o consultorios que buscan su primera presencia digital profesional sin riesgos.',
-    price: '$150 USD',
-    priceNote: 'Aplica la prueba gratis de 7 días sin costo inicial',
-    deliveryTime: '5 a 7 días hábiles (tras recibir el material)',
+    description: 'Ideal para consultorios que buscan su primera presencia digital profesional con enfoque en conversión móvil.',
+    price: '$290 USD',
+    priceNote: 'Pago único',
+    deliveryTime: '3 a 5 días hábiles',
     features: [
-      'Landing Page optimizada de 1 página (hasta 5 secciones).',
-      'Diseño 100% Mobile Responsive (adaptado a celulares y tablets).',
-      'Formulario de Agendamiento directo al WhatsApp de la clínica.',
-      'Carga ultra rápida y SEO básico estructurado.',
-      'Integración de redes sociales, mapa de ubicación y botón flotante de WhatsApp.',
-      '14 días de soporte post-entrega.',
+      'Landing Page Móvil Ultra-Rápida: hasta 5 bloques enfocados en conversión móvil (+85% del tráfico dental/médico).',
+      'Derivación Directa a WhatsApp: formulario corto con redirección automática y mensaje pre-armado.',
+      'Módulo de Confianza: integración de Google Maps, fotos de las instalaciones y redes sociales.',
+      'Optimización de Carga Exprés: compresión de imágenes para apertura en menos de 2 segundos.',
+      'Soporte & Garantía: 14 días de asistencia post-entrega para ajustes técnicos.',
     ],
     maintenance: {
-      price: '+$15 USD / mes',
-      details: 'Hosting de alta velocidad + 2 cambios de contenido al mes (textos, fotos, horarios) + Monitoreo 24/7.',
+      price: '+$20 USD / mes',
+      details: 'Hosting de alta velocidad, 2 actualizaciones mensuales, monitoreo 24/7.',
     },
-    cta: 'Probá 7 Días Gratis',
-    ctaLink: 'https://wa.me/5491157653009?text=Hola%20Emanuel%2C%20quiero%20el%20Plan%20Esencial%20con%20prueba%20gratis',
+    cta: 'Solicitar Plan Esencial',
+    ctaLink: `${whatsappLink}?text=Hola%20Emanuel%2C%20quiero%20solicitar%20el%20Plan%20Esencial%20para%20mi%20cl%C3%ADnica%20dental.`,
     highlighted: false,
   },
   {
     id: 'pro',
-    name: 'Pro',
+    name: 'Plan PRO — Sistema de Agendamiento y Triaje',
     badge: {
-      label: '⚡ 20% OFF',
-      subLabel: 'Código: PROMO280 · Cupos limitados',
-      type: 'promo' as const,
+      label: '⭐ Más Elegido por Clínicas',
+      subLabel: 'Garantía de Satisfacción',
+      type: 'pro',
     },
-    description: 'Para clínicas que buscan maximizar la conversión de pacientes, mejorar su posicionamiento local e impactar visualmente.',
-    originalPrice: '$350 USD',
-    price: '$280 USD',
+    description: 'Para clínicas que buscan maximizar la conversión de pacientes de alto ticket (Ortodoncia, Implantes, Estética).',
+    price: '$450 USD',
     priceNote: 'Pago único',
-    deliveryTime: '7 a 10 días hábiles (tras recibir el material)',
+    deliveryTime: '5 a 7 días hábiles',
     features: [
-      'Landing Page de alto impacto (hasta 8 secciones estratégicas).',
-      'Copywriting comercial enfocado en ventas y captura de pacientes.',
-      'Galería interactiva de tratamientos y casos (Antes / Después).',
-      'Formulario de reserva con selección de especialidad, fecha y franja horaria.',
-      'SEO Local avanzado para destacar en las búsquedas de tu ciudad/zona.',
-      'Optimización de rendimiento (100/100 en Google Lighthouse).',
-      '30 días de soporte prioritario post-entrega.',
+      'Estructura de Alto Impacto: hasta 8 bloques con arquitectura de información para vender tratamientos de alto ticket.',
+      'Copywriting Comercial: redacción enfocada en derribar objeciones y resaltar el diferencial de la clínica.',
+      'Formulario de Triaje y Agendamiento: filtro previo por especialidad y rango horario antes de derivar a WhatsApp.',
+      'Módulo Interactivo Antes/Después: galería visual optimizada para mostrar casos de éxito sin lentificar la página.',
+      'SEO Local Avanzado: optimización inicial para búsquedas geolocalizadas en tu ciudad/zona.',
+      'Garantía de Rendimiento Google Speed (90+): optimización extrema de código.',
+      'Soporte Prioritario: 30 días de acompañamiento post-lanzamiento.',
     ],
     maintenance: {
-      price: '+$30 USD / mes',
-      details: 'Hosting prioritario + 4 cambios de contenido al mes + Sistema de recordatorios automáticos por WhatsApp para reducir ausentismos de pacientes + Mantenimiento SEO.',
-      trialNote: 'Con 7 días de prueba gratis de la automatización',
+      price: '+$35 USD / mes',
+      details: 'Hosting prioritario, 4 cambios de contenido mensuales, respaldos semanales y mantenimiento SEO.',
     },
-    cta: 'Reclamar Oferta PRO',
-    ctaLink: 'https://wa.me/5491157653009?text=Hola%20Emanuel%2C%20quiero%20el%20Plan%20Pro%20con%20el%2020%25%20OFF',
+    cta: 'Postular a Plan PRO',
+    ctaLink: `${whatsappLink}?text=Hola%20Emanuel%2C%20quiero%20postular%20al%20Plan%20PRO%20para%20mi%20cl%C3%ADnica%20dental.`,
     highlighted: true,
   },
 ]
 
 // ============================================================
-// COMPONENTE DE BADGE MEJORADO
+// COMPONENTE DE BADGE
 // ============================================================
 function PricingBadge({ badge }: PricingBadgeProps) {
-  const isPromo = badge.type === 'promo'
+  const isPro = badge.type === 'pro'
 
   return (
     <div
       className={`relative mb-4 inline-flex flex-col items-start rounded-lg px-4 py-2 text-left ${
-        isPromo
+        isPro
           ? 'border border-yellow-500/30 bg-gradient-to-r from-yellow-500/10 to-amber-500/5 shadow-[0_0_20px_rgba(234,179,8,0.08)]'
-          : 'border border-green-500/30 bg-gradient-to-r from-green-500/10 to-emerald-500/5 shadow-[0_0_20px_rgba(37,211,102,0.08)]'
+          : 'border border-violet-500/30 bg-gradient-to-r from-violet-500/10 to-indigo-500/5 shadow-[0_0_20px_rgba(139,92,246,0.08)]'
       }`}
     >
-      {/* Línea decorativa lateral */}
       <div
         className={`absolute left-0 top-1/2 h-8 w-0.5 -translate-y-1/2 rounded-full ${
-          isPromo ? 'bg-yellow-500' : 'bg-green-500'
-        } shadow-lg ${isPromo ? 'shadow-yellow-500/50' : 'shadow-green-500/50'}`}
+          isPro ? 'bg-yellow-500' : 'bg-violet-500'
+        } shadow-lg ${isPro ? 'shadow-yellow-500/50' : 'shadow-violet-500/50'}`}
       />
-
-      {/* Etiqueta principal */}
-      <span
-        className={`text-sm font-bold tracking-tight ${
-          isPromo ? 'text-yellow-400' : 'text-[#25D366]'
-        }`}
-      >
+      <span className={`text-sm font-bold tracking-tight ${isPro ? 'text-yellow-400' : 'text-violet-400'}`}>
         {badge.label}
       </span>
-
-      {/* Sub-etiqueta (micro-copy) */}
       <span className="text-[10px] font-medium uppercase tracking-wider text-white/50">
         {badge.subLabel}
       </span>
@@ -182,7 +170,7 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
             }
           : {
               y: -4,
-              borderColor: 'rgba(124, 58, 237, 0.3)',
+              borderColor: 'rgba(139, 92, 246, 0.3)',
             }
       }
       className={`relative flex flex-col rounded-2xl p-6 transition-all duration-300 ease-in-out sm:p-8 lg:p-10 ${
@@ -191,36 +179,23 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
           : 'bg-[#12121A] border border-white/10'
       }`}
     >
-      {/* Badge mejorado */}
       <PricingBadge badge={plan.badge} />
 
-      {/* Nombre */}
       <h3 className="mb-2 text-2xl font-bold text-white">{plan.name}</h3>
-
-      {/* Descripción */}
       <p className="mb-4 text-sm font-normal leading-relaxed text-[#9CA3AF]">{plan.description}</p>
 
-      {/* Precio */}
       <div className="mb-1 flex items-baseline gap-2">
-        {plan.originalPrice && (
-          <span className="text-lg font-medium text-[#9CA3AF] line-through">
-            {plan.originalPrice}
-          </span>
-        )}
         <span className="text-4xl font-extrabold text-white">{plan.price}</span>
       </div>
       <p className="mb-4 text-xs text-[#6B7280]">{plan.priceNote}</p>
 
-      {/* Tiempo de entrega */}
       <div className="mb-6 flex items-center gap-2 text-sm text-[#9CA3AF]">
         <ClockIcon />
         <span>⏱ {plan.deliveryTime}</span>
       </div>
 
-      {/* Línea divisora */}
       <div className="mb-6 h-px w-full bg-white/10" />
 
-      {/* Características */}
       <ul className="mb-6 flex flex-col gap-3">
         {plan.features.map((feature) => (
           <li key={feature} className="flex items-start gap-2 text-sm leading-relaxed text-[#D1D5DB]">
@@ -232,7 +207,6 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
         ))}
       </ul>
 
-      {/* Bloque de mantenimiento */}
       <div
         className={`mb-6 rounded-lg border p-4 ${
           isPro
@@ -247,14 +221,8 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
         <p className="mt-1 text-xs leading-relaxed text-[#9CA3AF]">
           {plan.maintenance.details}
         </p>
-        {plan.maintenance.trialNote && (
-          <p className="mt-1 text-xs font-medium text-[#25D366]">
-            {plan.maintenance.trialNote}
-          </p>
-        )}
       </div>
 
-      {/* Botón CTA */}
       <motion.a
         href={plan.ctaLink}
         target="_blank"
@@ -280,7 +248,6 @@ export function Pricing() {
   return (
     <section id="precios" className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28">
       <div className="mx-auto max-w-[1100px]">
-        {/* ===== ENCABEZADO ===== */}
         <div className="mb-12 text-center">
           <div className="mb-4">
             <SectionLabel>INVERSIÓN TRANSPARENTE</SectionLabel>
@@ -293,7 +260,6 @@ export function Pricing() {
           </p>
         </div>
 
-        {/* ===== GRID DE PRECIOS ===== */}
         <div className="mx-auto grid max-w-[960px] grid-cols-1 gap-8 lg:grid-cols-2">
           {pricingData.map((plan, index) => (
             <PricingCard key={plan.id} plan={plan} index={index} />

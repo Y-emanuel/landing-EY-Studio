@@ -113,11 +113,13 @@ export function Header() {
 
           {/* Acciones derecha */}
           <div className="flex items-center gap-2">
+            {/* Badge de disponibilidad actualizado */}
             <span className="hidden items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400 sm:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Agenda Abierta · Cupos PROMO280
+              Cupos Limitados · Beta
             </span>
 
+            {/* Botón CTA actualizado */}
             <motion.a
               href={whatsappLink}
               target="_blank"
@@ -126,7 +128,7 @@ export function Header() {
               whileTap={{ scale: 0.97 }}
               className="flex min-h-10 items-center rounded-full bg-gradient-to-r from-violet-haze to-violet-pulse px-4 text-sm font-medium text-white shadow-sm shadow-violet-haze/10 transition-all hover:shadow-violet-haze/20 whitespace-nowrap"
             >
-              Prueba Gratis 7 Días
+              Solicitar Plan
             </motion.a>
 
             <button

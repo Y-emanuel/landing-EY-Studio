@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { whatsappLink } from '../content/constants'
 
 // ============================================================
 // SVG ICONS
@@ -25,13 +26,9 @@ const ArrowIcon = () => (
 // COMPONENTE PRINCIPAL
 // ============================================================
 export function FinalCTA() {
-  const whatsappLink =
-    'https://wa.me/5491157653009?text=Hola%20Emanuel%2C%20quiero%20impulsar%20mi%20clínica%20con%20una%20landing%20page'
-
   return (
     <section className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28">
       <div className="mx-auto max-w-[1000px]">
-        {/* ===== TARJETA / BANNER PRINCIPAL ===== */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -40,7 +37,6 @@ export function FinalCTA() {
           className="relative overflow-hidden rounded-3xl border border-[#7C3AED] bg-gradient-to-br from-[#161324] to-[#12121A] p-8 text-center shadow-2xl shadow-[#7C3AED]/25 transition-all duration-300 ease-in-out sm:p-10 md:p-16"
           style={{ boxShadow: '0px 0px 50px rgba(124, 58, 237, 0.25)' }}
         >
-          {/* Badge superior con efecto de pulso */}
           <motion.div
             animate={{
               boxShadow: [
@@ -55,17 +51,14 @@ export function FinalCTA() {
             🚀 IMPULSA TU CLÍNICA HOY
           </motion.div>
 
-          {/* Título H2 */}
           <h2 className="mx-auto max-w-[720px] font-outfit text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
             ¿Listo para transformar la agenda de tu consultorio y dejar de perder pacientes?
           </h2>
 
-          {/* Subtítulo */}
           <p className="mx-auto mt-4 max-w-[600px] text-base font-normal leading-relaxed text-[#D1D5DB] sm:text-lg">
-            Empieza hoy con la Prueba Gratis de 7 días del Plan Esencial o aprovecha el 20% OFF en el Plan Pro con el código PROMO280. Sin contratos de permanencia ni trámites complejos.
+            Solicita tu Plan Esencial o postula al Plan PRO. Ambos incluyen entrega exprés y garantía de satisfacción. Sin contratos de permanencia.
           </p>
 
-          {/* Bloque de botones CTA */}
           <div className="mt-8 flex flex-col items-center gap-4">
             <motion.a
               href={whatsappLink}
@@ -80,21 +73,19 @@ export function FinalCTA() {
               className="inline-flex items-center justify-center gap-3 rounded-xl bg-[#25D366] px-8 py-4 text-lg font-bold text-white shadow-lg shadow-[#25D366]/40 transition-all duration-300 ease-in-out hover:bg-[#20b85f] sm:px-10 sm:py-4"
             >
               <WhatsAppIcon />
-              Hablar con un Asesor por WhatsApp
+              Solicitar mi Plan Ahora
               <ArrowIcon />
             </motion.a>
 
-            {/* Micro-copy de garantía */}
             <p className="text-sm font-medium text-[#9CA3AF]">
               ⚡ Respuesta inmediata en menos de 15 minutos • Sin compromiso de compra
             </p>
           </div>
 
-          {/* Sellos de confianza */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm font-semibold text-[#25D366]">
             <span className="flex items-center gap-2">
               <CheckIcon />
-              Entrega rápida de 5 a 10 días
+              Entrega rápida de 3 a 7 días
             </span>
             <span className="flex items-center gap-2">
               <CheckIcon />
@@ -106,7 +97,6 @@ export function FinalCTA() {
             </span>
           </div>
 
-          {/* Efecto de brillo sutil en el borde (decorativo) */}
           <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#7C3AED] to-transparent opacity-60" />
           <div className="absolute -bottom-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#7C3AED] to-transparent opacity-30" />
         </motion.div>

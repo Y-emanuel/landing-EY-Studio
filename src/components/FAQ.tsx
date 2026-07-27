@@ -112,7 +112,7 @@ function FAQItem({
   )
 }
 
-export function FAQ() {
+export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(null)
 
   const toggle = (id: number) => {

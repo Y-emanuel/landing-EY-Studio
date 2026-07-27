@@ -37,6 +37,8 @@ export function SocialProof() {
                   src={item.icon}
                   alt={item.alt}
                   className="h-6 w-auto opacity-50 transition hover:opacity-100"
+                  width="24"   // 👈 Añadido para CLS
+                  height="24"  // 👈 Añadido para CLS
                 />
                 <span>{item.name}</span>
               </div>
@@ -54,7 +56,6 @@ export function SocialProof() {
           variants={staggerContainer}
           className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {/* ✅ Eliminamos 'index' porque no se usa */}
           {metrics.map((metric) => (
             <motion.div
               key={metric.label}

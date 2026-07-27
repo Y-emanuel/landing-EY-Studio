@@ -35,7 +35,6 @@ const demos = [
     tag: 'Clínica Dental / General',
     features: ['Menú rápido de tratamientos', 'Botón flotante de WhatsApp siempre visible'],
     whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
-    style: 'light' as const,
   },
   {
     id: 'elite',
@@ -43,20 +42,19 @@ const demos = [
     badge: 'DEMO COMERCIAL • PREMIUM / DARK',
     description:
       'Diseño de alta gama con estética oscura y elegante. Pensado para clínicas especializadas en carillas, blanqueamiento y alineadores invisibles de alto valor.',
-    image: '/assets/images/landing-barber.webp', // placeholder, idealmente debería ser otra imagen dental oscura
+    image: '/assets/images/landing-barber.webp',
     link: 'https://barber-demo-dusky.vercel.app/',
     tags: ['Carillas', 'Blanqueamiento', 'Invisalign'],
     tag: 'Estética Dental',
     features: ['Galería interactiva Antes / Después', 'Formulario de evaluación estética inicial'],
     whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
-    style: 'dark' as const,
   },
 ]
 
 // ============================================================
 // COMPONENTE DE VENTANA DE NAVEGADOR (Mockup)
 // ============================================================
-function BrowserWindow({ image, title}: { image: string; title: string; style: 'light' | 'dark' }) {
+function BrowserWindow({ image, title }: { image: string; title: string }) {
   return (
     <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#1A1A24] shadow-xl">
       {/* Barra superior del navegador */}
@@ -70,14 +68,13 @@ function BrowserWindow({ image, title}: { image: string; title: string; style: '
       </div>
 
       {/* Contenido de la página (imagen con scroll) */}
-      <div className="relative h-56 overflow-hidden bg-[#0A0A0F]">
+      <div className="relative overflow-hidden bg-[#0A0A0F] aspect-[800/420]">
         <img
           src={image}
           alt={title}
           className="h-full w-full object-cover object-top transition-transform duration-[3000ms] ease-in-out group-hover:translate-y-[-20%]"
           loading="lazy"
         />
-        {/* Gradiente inferior para conectar con el texto */}
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#12121A] to-transparent" />
       </div>
     </div>
@@ -87,10 +84,9 @@ function BrowserWindow({ image, title}: { image: string; title: string; style: '
 // ============================================================
 // COMPONENTE PRINCIPAL
 // ============================================================
-export function Demos() {
+export default function Demos() {
   const [activeTab, setActiveTab] = useState('all')
 
-  // Filtros disponibles
   const tabs = [
     { id: 'all', label: 'Todos los Diseños' },
     { id: 'clinica', label: 'Clínica Dental / General' },
@@ -98,18 +94,16 @@ export function Demos() {
     { id: 'estetica', label: 'Estética Dental' },
   ]
 
-  // Filtrado de demos (por ahora solo mostramos 2, pero simulamos filtro)
-  // En una implementación real, tendríamos más demos y un sistema de filtros
   const filteredDemos = demos.filter((demo) => {
     if (activeTab === 'all') return true
     if (activeTab === 'clinica') return demo.id === 'clinica'
-    if (activeTab === 'ortodoncia') return demo.id === 'clinica' // mock
+    if (activeTab === 'ortodoncia') return demo.id === 'clinica'
     if (activeTab === 'estetica') return demo.id === 'elite'
     return true
   })
 
   return (
-    <section id="casos" className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28">
+    <section className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28" id="casos">
       <div className="mx-auto max-w-[1200px]">
         {/* ===== ENCABEZADO ===== */}
         <div className="mb-12 text-center">
@@ -125,17 +119,16 @@ export function Demos() {
           </p>
         </div>
 
-        {/* ===== TABS (Pestañas de filtro) ===== */}
+        {/* ===== TABS ===== */}
         <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
-                activeTab === tab.id
-                  ? 'bg-[#7C3AED] text-white shadow-lg shadow-[#7C3AED]/25'
-                  : 'border border-white/10 bg-white/5 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
-              }`}
+              className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${activeTab === tab.id
+                ? 'bg-[#7C3AED] text-white shadow-lg shadow-[#7C3AED]/25'
+                : 'border border-white/10 bg-white/5 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
+                }`}
             >
               {tab.label}
             </button>
@@ -165,23 +158,14 @@ export function Demos() {
                 }}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#12121A] transition-all duration-300 ease-in-out hover:border-[#7C3AED]"
               >
-                {/* ===== VENTANA DEL NAVEGADOR ===== */}
-                <BrowserWindow image={demo.image} title={demo.title} style={demo.style} />
+                <BrowserWindow image={demo.image} title={demo.title} />
 
-                {/* ===== INFORMACIÓN DE LA DEMO ===== */}
                 <div className="flex flex-1 flex-col p-6 sm:p-8">
-                  {/* Badge */}
                   <span className="mb-3 inline-flex items-center rounded-full bg-[#7C3AED]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#C4B5FD]">
                     {demo.badge}
                   </span>
-
-                  {/* Título */}
                   <h3 className="mb-2 text-xl font-bold text-white">{demo.title}</h3>
-
-                  {/* Descripción */}
                   <p className="mb-4 text-sm font-normal leading-relaxed text-[#9CA3AF]">{demo.description}</p>
-
-                  {/* Puntos clave (features) */}
                   <ul className="mb-6 space-y-1.5">
                     {demo.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-2 text-sm text-[#D1D5DB]">
@@ -190,20 +174,13 @@ export function Demos() {
                       </li>
                     ))}
                   </ul>
-
-                  {/* Tags */}
                   <div className="mb-6 flex flex-wrap gap-2">
                     {demo.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#9CA3AF]"
-                      >
+                      <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#9CA3AF]">
                         {tag}
                       </span>
                     ))}
                   </div>
-
-                  {/* ===== BOTONES CTA ===== */}
                   <div className="mt-auto flex flex-wrap gap-3">
                     <a
                       href={demo.link}
@@ -230,7 +207,6 @@ export function Demos() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Mensaje si no hay demos filtradas */}
         {filteredDemos.length === 0 && (
           <div className="mt-12 text-center text-[#9CA3AF]">
             <p>No hay demos disponibles para esta categoría.</p>

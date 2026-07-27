@@ -14,58 +14,65 @@ const clinicaMockupImageMobile = '/assets/images/landing-clinica-movil.webp'
 // ============================================================
 function HeroVisual() {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.92, y: 20 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        y: [0, -12, 0],
-      }}
-      transition={{
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
-        y: {
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'loop',
-        },
-      }}
-      className="relative mx-auto w-full max-w-[630px]"
-    >
+    <div className="relative mx-auto w-full max-w-[630px] animate-float">
       {/* VERSIÓN MÓVIL */}
       <div className="block sm:hidden">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[rgba(26,26,38,0.4)]">
-          <img
-            src={clinicaMockupImageMobile}
-            alt="Demo de landing page para Clínica Dental Sonrisa - EyStudio (móvil)"
-            className="h-auto w-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute left-2 top-2 rounded-xl border border-white/10 bg-black/60 px-2 py-1 backdrop-blur-sm">
-            <p className="text-[8px] font-medium text-violet-haze">🦷 Demo · Clínica Dental</p>
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[rgba(26,26,38,0.4)]">
+          {/* Contenedor de imagen con aspect-ratio */}
+          <div className="relative aspect-[370/647] w-full bg-[#0A0A0F]">
+            <img
+              src={clinicaMockupImageMobile}
+              alt="Demo de landing page para Clínica Dental Sonrisa - EyStudio (móvil)"
+              className="h-full w-full object-cover object-top"
+              loading="eager"
+              fetchPriority="high"
+              width={370}
+              height={647}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F]/60 via-transparent to-transparent" />
+            {/* Badge superior */}
+            <div className="absolute left-2 top-2 rounded-xl border border-white/10 bg-black/60 px-2 py-1 backdrop-blur-sm">
+              <p className="text-[8px] font-medium text-violet-haze">🦷 Demo · Clínica Dental</p>
+            </div>
+            {/* Tarjetas flotantes de métricas */}
+            <div className="absolute bottom-2 left-2 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-2 py-1.5 backdrop-blur-sm flex items-center gap-1">
+              <svg className="h-3 w-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              <span className="text-[10px] font-bold text-white">+30%</span>
+              <span className="text-[8px] text-[#9CA3AF]">Pacientes</span>
+            </div>
+            <div className="absolute bottom-2 right-2 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-2 py-1.5 backdrop-blur-sm flex items-center gap-1">
+              <svg className="h-3 w-3 text-[#25D366]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span className="text-[10px] font-bold text-white">-80%</span>
+              <span className="text-[8px] text-[#9CA3AF]">No-shows</span>
+            </div>
           </div>
-          <div className="absolute bottom-2 left-2 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-2 py-1.5 backdrop-blur-sm flex items-center gap-1">
-            <svg className="h-3 w-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-            <span className="text-[10px] font-bold text-white">+30%</span>
-            <span className="text-[8px] text-[#9CA3AF]">Pacientes</span>
-          </div>
-          <div className="absolute bottom-2 right-2 rounded-xl border border-white/10 bg-[rgba(26,26,38,0.7)] px-2 py-1.5 backdrop-blur-sm flex items-center gap-1">
-            <svg className="h-3 w-3 text-[#25D366]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            <span className="text-[10px] font-bold text-white">-80%</span>
-            <span className="text-[8px] text-[#9CA3AF]">No-shows</span>
+
+          {/* ✅ Tarjeta inferior FUERA de la imagen (para que no tape) */}
+          <div className="p-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-white">🦷 Clínica Dental · Demo</p>
+              <span className="rounded-full bg-violet-pulse/20 px-3 py-1 text-xs text-violet-haze">Ver proyecto</span>
+            </div>
+            <p className="mt-1 text-sm leading-5 text-white/70">Landing con sistema de turnos por WhatsApp para el sector odontológico.</p>
+            <div className="mt-2 grid grid-cols-3 gap-1">
+              {['Turnos 24/7', 'Recordatorios', 'Diseño premium'].map((item) => (
+                <span key={item} className="rounded-xl bg-white/5 px-2 py-1 text-center text-[10px] text-[#9CA3AF] border border-white/5">{item}</span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
+      {/* VERSIÓN DESKTOP (igual, con overlay) */}
       {/* VERSIÓN DESKTOP */}
       <div className="hidden sm:block">
         <div className="absolute -inset-8 rounded-full bg-[#7C3AED]/15 blur-3xl pointer-events-none" />
 
+        {/* Tarjetas flotantes +30% y -80% (sin cambios) */}
         <motion.div
           initial={{ opacity: 0, x: 20, y: -10 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
@@ -93,12 +100,15 @@ function HeroVisual() {
         </motion.div>
 
         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(26,26,38,0.6)] p-3 shadow-2xl shadow-black/50 backdrop-blur-xl">
-          <div className="relative overflow-hidden rounded-[1.5rem]">
+          <div className="relative overflow-hidden rounded-[1.5rem] aspect-[800/420] bg-[#0A0A0F]">
             <img
               src={clinicaMockupImage}
               alt="Demo de landing page para Clínica Dental Sonrisa - EyStudio"
-              className="h-[420px] w-full object-cover object-top"
-              loading="lazy"
+              className="h-full w-full object-cover object-top"
+              loading="eager"
+              fetchPriority="high"
+              width={800}
+              height={420}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,7,0.08),rgba(5,5,7,0.84)),radial-gradient(circle_at_72%_20%,rgba(167,139,250,0.22),transparent_18rem)]" />
 
@@ -122,31 +132,32 @@ function HeroVisual() {
             </div>
           </div>
 
+          {/* ✅ TARJETA INFERIOR MEJORADA (más transparente y compacta) */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.62, duration: 0.5 }}
-            className="absolute bottom-6 left-6 right-6 rounded-[1.35rem] border border-white/[0.09] bg-[#08070d]/82 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl"
+            className="absolute bottom-2 left-2 right-2 rounded-xl border border-white/10 bg-[#08070d]/40 p-2.5 shadow-lg shadow-black/20 backdrop-blur-sm"
           >
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-sm font-semibold text-white">🦷 Clínica Dental · Demo</p>
-              <span className="rounded-full bg-violet-pulse/20 px-3 py-1 text-xs text-violet-haze">Ver proyecto</span>
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[10px] font-semibold text-white sm:text-xs">🦷 Clínica Dental · Demo</p>
+              <span className="rounded-full bg-violet-pulse/20 px-2 py-0.5 text-[8px] text-violet-haze sm:px-3 sm:py-1 sm:text-[10px]">Ver proyecto</span>
             </div>
-            <p className="mt-3 text-sm leading-6 text-white/70">Landing con sistema de turnos por WhatsApp para el sector odontológico.</p>
-            <div className="mt-4 grid grid-cols-3 gap-2">
+            <p className="mt-1 text-[10px] leading-4 text-white/70 sm:text-xs sm:leading-5">Landing con sistema de turnos por WhatsApp para el sector odontológico.</p>
+            <div className="mt-1.5 grid grid-cols-3 gap-1">
               {['Turnos 24/7', 'Recordatorios', 'Diseño premium'].map((item) => (
-                <span key={item} className="rounded-xl bg-white/5 px-3 py-2 text-center text-xs text-[#9CA3AF] border border-white/5">{item}</span>
+                <span key={item} className="rounded-lg bg-white/5 px-1.5 py-0.5 text-center text-[7px] text-[#9CA3AF] border border-white/5 sm:px-2 sm:py-1 sm:text-[9px]">{item}</span>
               ))}
             </div>
           </motion.div>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
 // ============================================================
-// COMPONENTE HERO PRINCIPAL
+// COMPONENTE HERO PRINCIPAL (sin cambios)
 // ============================================================
 export function Hero() {
   return (

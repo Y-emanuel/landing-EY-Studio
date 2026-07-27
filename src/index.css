@@ -1,9 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+/* ============================================================
+   FUENTES AUTO-ALOJADAS (Inter + Outfit en .woff2)
+   ============================================================ */
 
+/* ----- INTER (Variable) ----- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Inter/Inter-Variable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Inter/Inter-Italic-Variable.woff2') format('woff2-variations');
+}
+
+/* ----- OUTFIT (Variable) ----- */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Outfit/Outfit-Variable.woff2') format('woff2-variations');
+}
+
+/* ============================================================
+   TAILWIND
+   ============================================================ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   VARIABLES GLOBALES
+   ============================================================ */
 :root {
   color-scheme: dark;
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -40,17 +74,17 @@ a {
 }
 
 h1, h2, h3 {
-  letter-spacing: -0.01em; /* ya lo tienes en algunas clases */
+  letter-spacing: -0.01em;
 }
 
 .font-display {
-  font-weight: 500; /* o 600, según prefieras */
+  font-weight: 500;
   font-style: normal;
 }
-/* ============================================
-   GLITCH BUTTON (from Uiverse.io by 212004ALJI)
-   Adaptado a la paleta de EY Studio
-   ============================================ */
+
+/* ============================================================
+   GLITCH BUTTON (efecto visual)
+   ============================================================ */
 @keyframes glitch_4011 {
   0% {
     clip-path: inset(50% 50% 50% 50%);
@@ -152,4 +186,20 @@ h1, h2, h3 {
   background-color: transparent;
   border: 1px solid rgba(167, 139, 250, 0.3);
   box-shadow: 0px 10px 20px -10px rgba(167, 139, 250, 0.3);
+}
+
+/* ============================================================
+   ANIMACIONES PERSONALIZADAS
+   ============================================================ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

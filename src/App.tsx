@@ -1,25 +1,27 @@
+import { lazy, Suspense } from 'react'
 import { MotionConfig } from 'framer-motion'
-import { FAQ } from './components/FAQ'
-import { FloatingWhatsApp } from './components/FloatingWhatsApp'
-import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { SocialProof } from './components/SocialProof'
 import { PainVsSolution } from './components/PainVsSolution'
 import { Features } from './components/Features'
-import { Demos } from './components/Demos'
-import { FinalCTA } from './components/FinalCTA'
 import { ComparisonTable } from './components/ComparisonTable'
+import { Pricing } from './components/Pricing'
+import { FinalCTA } from './components/FinalCTA'
+import { Footer } from './components/Footer'
+import { FloatingWhatsApp } from './components/FloatingWhatsApp'
+import { BackToTop } from './components/BackToTop'
 import { ScrollProgress } from './components/motion/ScrollProgress'
 import { GlowSpotlight } from './components/motion/GlowSpotlight'
-import { Pricing } from './components/Pricing'
-import { BackToTop } from './components/BackToTop'
+
+// ✅ Lazy loading para secciones que no son críticas
+const Demos = lazy(() => import('./components/Demos'))
+const FAQ = lazy(() => import('./components/FAQ'))
 
 function App() {
   return (
     <MotionConfig reducedMotion="user">
       <main className="min-h-screen overflow-hidden bg-ink text-white">
-        {/* Efectos globales */}
         <GlowSpotlight />
         <ScrollProgress />
         <Header />
@@ -27,10 +29,14 @@ function App() {
         <SocialProof />
         <PainVsSolution />
         <Features />
-        <Demos />
+        <Suspense fallback={<div className="h-96 animate-pulse bg-white/5" />}>
+          <Demos />
+        </Suspense>
         <ComparisonTable />
         <Pricing />
-        <FAQ />
+        <Suspense fallback={<div className="h-96 animate-pulse bg-white/5" />}>
+          <FAQ />
+        </Suspense>
         <FinalCTA />
         <Footer />
         <FloatingWhatsApp />

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:critical": "npm run build && npx critical dist/index.html --base ./ --inline --width 375 --height 812 > dist/index-critical.html && move dist/index-critical.html dist/index.html",
+    "build:inline": "vite build && node scripts/inline-css.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -25,6 +25,7 @@
     "postcss": "^8.5.16",
     "tailwindcss": "^3.4.17",
     "typescript": "~6.0.2",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "vite-plugin-singlefile": "^2.3.3"
   }
 }

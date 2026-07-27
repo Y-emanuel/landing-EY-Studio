@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { SectionLabel } from './ui'
 
@@ -90,20 +91,15 @@ function ComparisonRow({
       whileHover={{ backgroundColor: 'rgba(124, 58, 237, 0.06)' }}
       className={`group transition-colors duration-300 ${isEven ? 'bg-white/5' : 'bg-transparent'}`}
     >
-      {/* Columna 1: Criterio */}
       <td className="border-b border-white/5 px-4 py-4 text-sm font-semibold text-white sm:px-6 sm:py-5">
         {criterion}
       </td>
-
-      {/* Columna 2: Tradicional */}
       <td className="border-b border-white/5 px-4 py-4 text-sm leading-relaxed text-[#9CA3AF] sm:px-6 sm:py-5">
         <span className="mr-2 inline-block">
           <CrossIcon />
         </span>
         {traditional}
       </td>
-
-      {/* Columna 3: Optimizado (EyStudio) */}
       <td className="border-b border-white/5 px-4 py-4 text-sm font-medium leading-relaxed text-[#E5E7EB] sm:px-6 sm:py-5">
         <span className="mr-2 inline-block">
           <CheckIcon />
@@ -115,13 +111,12 @@ function ComparisonRow({
 }
 
 // ============================================================
-// COMPONENTE PRINCIPAL
+// COMPONENTE PRINCIPAL (con memo)
 // ============================================================
-export function ComparisonTable() {
+const ComparisonTable = memo(function ComparisonTable() {
   return (
     <section className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28">
       <div className="mx-auto max-w-[1100px]">
-        {/* ===== ENCABEZADO ===== */}
         <div className="mb-12 text-center">
           <div className="mb-4">
             <SectionLabel>COMPARATIVA DIRECTA</SectionLabel>
@@ -135,12 +130,9 @@ export function ComparisonTable() {
           </p>
         </div>
 
-        {/* ===== TABLA COMPARATIVA ===== */}
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#12121A] shadow-xl">
-          {/* Scroll horizontal para móvil */}
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto border-collapse">
-              {/* Cabecera */}
               <thead>
                 <tr>
                   <th className="w-[35%] border-b border-white/5 px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-[#9CA3AF] sm:px-6 sm:py-5">
@@ -156,13 +148,10 @@ export function ComparisonTable() {
                         RECOMENDADO
                       </span>
                     </div>
-                    {/* Sombra interna para destacar la columna */}
                     <div className="absolute inset-y-0 left-0 w-full shadow-[inset_0_0_20px_rgba(124,58,237,0.08)] pointer-events-none" />
                   </th>
                 </tr>
               </thead>
-
-              {/* Cuerpo */}
               <tbody>
                 {comparisonData.map((row, index) => (
                   <ComparisonRow
@@ -180,4 +169,6 @@ export function ComparisonTable() {
       </div>
     </section>
   )
-}
+})
+
+export { ComparisonTable }

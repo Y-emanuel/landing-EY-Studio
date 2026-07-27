@@ -20,7 +20,7 @@ const WhatsAppIcon = () => (
 )
 
 // ============================================================
-// DATOS DE LAS DEMOS
+// DATOS DE LAS DEMOS (con imagen pequeña para la clínica)
 // ============================================================
 const demos = [
   {
@@ -29,12 +29,12 @@ const demos = [
     badge: 'DEMO COMERCIAL • LUZ / MEDICO',
     description:
       'Diseño limpio y luminoso enfocado en transmitir higiene, profesionalismo y cercanía. Ideal para consultorios familiares y medicina prepaga.',
-    image: '/assets/images/landing-clinica.webp',
+    image: '/assets/images/landing-clinica-small.webp', // ✅ imagen pequeña
     link: 'https://clinica-odontologica-demo.vercel.app/',
     tags: ['Limpieza', 'Conducto', 'Extracciones'],
     tag: 'Clínica Dental / General',
     features: ['Menú rápido de tratamientos', 'Botón flotante de WhatsApp siempre visible'],
-    whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
+    whatsappLink: 'https://wa.me/5401157653009?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
   },
   {
     id: 'elite',
@@ -42,12 +42,12 @@ const demos = [
     badge: 'DEMO COMERCIAL • PREMIUM / DARK',
     description:
       'Diseño de alta gama con estética oscura y elegante. Pensado para clínicas especializadas en carillas, blanqueamiento y alineadores invisibles de alto valor.',
-    image: '/assets/images/landing-barber.webp',
+    image: '/assets/images/landing-barber.webp', // esta es la de barbería (puede quedarse grande)
     link: 'https://barber-demo-dusky.vercel.app/',
     tags: ['Carillas', 'Blanqueamiento', 'Invisalign'],
     tag: 'Estética Dental',
     features: ['Galería interactiva Antes / Después', 'Formulario de evaluación estética inicial'],
-    whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
+    whatsappLink: 'https://wa.me/5401157653009?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
   },
 ]
 
@@ -57,7 +57,6 @@ const demos = [
 function BrowserWindow({ image, title }: { image: string; title: string }) {
   return (
     <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#1A1A24] shadow-xl">
-      {/* Barra superior del navegador */}
       <div className="flex items-center gap-2 border-b border-white/5 px-4 py-3">
         <div className="flex gap-1.5">
           <span className="h-3 w-3 rounded-full bg-[#FF5F56]" />
@@ -67,7 +66,6 @@ function BrowserWindow({ image, title }: { image: string; title: string }) {
         <span className="ml-2 text-xs font-medium text-white/30">{title}</span>
       </div>
 
-      {/* Contenido de la página (imagen con scroll) */}
       <div className="relative overflow-hidden bg-[#0A0A0F] aspect-[800/420]">
         <img
           src={image}
@@ -82,7 +80,7 @@ function BrowserWindow({ image, title }: { image: string; title: string }) {
 }
 
 // ============================================================
-// COMPONENTE PRINCIPAL
+// COMPONENTE PRINCIPAL (con export default)
 // ============================================================
 export default function Demos() {
   const [activeTab, setActiveTab] = useState('all')
@@ -105,7 +103,6 @@ export default function Demos() {
   return (
     <section className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28" id="casos">
       <div className="mx-auto max-w-[1200px]">
-        {/* ===== ENCABEZADO ===== */}
         <div className="mb-12 text-center">
           <div className="mb-4">
             <SectionLabel>DEMOS EN VIVO</SectionLabel>
@@ -119,23 +116,22 @@ export default function Demos() {
           </p>
         </div>
 
-        {/* ===== TABS ===== */}
         <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${activeTab === tab.id
-                ? 'bg-[#7C3AED] text-white shadow-lg shadow-[#7C3AED]/25'
-                : 'border border-white/10 bg-white/5 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
-                }`}
+              className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
+                activeTab === tab.id
+                  ? 'bg-[#7C3AED] text-white shadow-lg shadow-[#7C3AED]/25'
+                  : 'border border-white/10 bg-white/5 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
+              }`}
             >
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* ===== GRID DE DEMOS ===== */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

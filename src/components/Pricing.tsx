@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { SectionLabel } from './ui'
 import { whatsappLink } from '../content/constants'
@@ -49,6 +50,7 @@ interface PricingPlan {
   description: string
   price: string
   priceNote: string
+  originalPrice?: string
   deliveryTime: string
   features: string[]
   maintenance: {
@@ -62,7 +64,7 @@ interface PricingPlan {
 }
 
 // ============================================================
-// DATOS DE PRECIOS (actualizados)
+// DATOS DE PRECIOS
 // ============================================================
 const pricingData: PricingPlan[] = [
   {
@@ -185,6 +187,11 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
       <p className="mb-4 text-sm font-normal leading-relaxed text-[#9CA3AF]">{plan.description}</p>
 
       <div className="mb-1 flex items-baseline gap-2">
+        {plan.originalPrice && (
+          <span className="text-lg font-medium text-[#9CA3AF] line-through">
+            {plan.originalPrice}
+          </span>
+        )}
         <span className="text-4xl font-extrabold text-white">{plan.price}</span>
       </div>
       <p className="mb-4 text-xs text-[#6B7280]">{plan.priceNote}</p>
@@ -242,9 +249,9 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
 }
 
 // ============================================================
-// COMPONENTE PRINCIPAL
+// COMPONENTE PRINCIPAL (con memo)
 // ============================================================
-export function Pricing() {
+const Pricing = memo(function Pricing() {
   return (
     <section id="precios" className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28">
       <div className="mx-auto max-w-[1100px]">
@@ -268,4 +275,6 @@ export function Pricing() {
       </div>
     </section>
   )
-}
+})
+
+export { Pricing }

@@ -5,8 +5,6 @@ import { Hero } from './components/Hero'
 import { SocialProof } from './components/SocialProof'
 import { PainVsSolution } from './components/PainVsSolution'
 import { Features } from './components/Features'
-import { ComparisonTable } from './components/ComparisonTable'
-import { Pricing } from './components/Pricing'
 import { FinalCTA } from './components/FinalCTA'
 import { Footer } from './components/Footer'
 import { FloatingWhatsApp } from './components/FloatingWhatsApp'
@@ -14,9 +12,11 @@ import { BackToTop } from './components/BackToTop'
 import { ScrollProgress } from './components/motion/ScrollProgress'
 import { GlowSpotlight } from './components/motion/GlowSpotlight'
 
-// ✅ Lazy loading para secciones que no son críticas
+// ✅ Lazy loading para secciones no críticas
 const Demos = lazy(() => import('./components/Demos'))
 const FAQ = lazy(() => import('./components/FAQ'))
+const ComparisonTable = lazy(() => import('./components/ComparisonTable'))
+const Pricing = lazy(() => import('./components/Pricing'))
 
 function App() {
   return (
@@ -32,8 +32,12 @@ function App() {
         <Suspense fallback={<div className="h-96 animate-pulse bg-white/5" />}>
           <Demos />
         </Suspense>
-        <ComparisonTable />
-        <Pricing />
+        <Suspense fallback={<div className="h-96 animate-pulse bg-white/5" />}>
+          <ComparisonTable />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 animate-pulse bg-white/5" />}>
+          <Pricing />
+        </Suspense>
         <Suspense fallback={<div className="h-96 animate-pulse bg-white/5" />}>
           <FAQ />
         </Suspense>

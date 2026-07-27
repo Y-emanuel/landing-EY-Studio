@@ -249,7 +249,7 @@ function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
 }
 
 // ============================================================
-// COMPONENTE PRINCIPAL (con memo)
+// COMPONENTE PRINCIPAL (con memo y export default)
 // ============================================================
 const Pricing = memo(function Pricing() {
   return (
@@ -277,4 +277,4 @@ const Pricing = memo(function Pricing() {
   )
 })
 
-export { Pricing }
+export default Pricing

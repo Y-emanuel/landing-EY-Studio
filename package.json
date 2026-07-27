@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:critical": "npm run build && npx critical dist/index.html --base ./ --inline --width 375 --height 812 > dist/index-critical.html && move dist/index-critical.html dist/index.html",
     "lint": "oxlint",
     "preview": "vite preview"
   },

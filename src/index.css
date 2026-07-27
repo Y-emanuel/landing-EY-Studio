@@ -259,3 +259,32 @@ h1, h2, h3 {
 .animate-fadeInRight {
   animation: fadeInRight 0.6s ease-out forwards;
 }
+
+/* ============================================================
+   ANIMACIONES PARA HEADER (reemplazan Framer Motion)
+   ============================================================ */
+@keyframes headerEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-header {
+  animation: headerEnter 0.5s ease-out forwards;
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  50% {
+    border-color: rgba(167, 139, 250, 0.2);
+  }
+}
+.animate-border-pulse {
+  animation: borderPulse 4s ease-in-out infinite;
+}

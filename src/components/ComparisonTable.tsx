@@ -111,7 +111,7 @@ function ComparisonRow({
 }
 
 // ============================================================
-// COMPONENTE PRINCIPAL (con memo y export default)
+// COMPONENTE PRINCIPAL (con memo)
 // ============================================================
 const ComparisonTable = memo(function ComparisonTable() {
   return (

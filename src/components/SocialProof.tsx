@@ -2,14 +2,8 @@ import { motion } from 'framer-motion'
 import { slideUp, staggerContainer } from '../lib/motion'
 import { SectionLabel } from './ui'
 
-// Lista de integraciones con rutas a tus SVGs
+// ✅ Solo 5 elementos (sin duplicados)
 const integrations = [
-  { name: 'Google Search', icon: '/assets/images/google-color-svgrepo-com.svg', alt: 'Google' },
-  { name: 'WhatsApp API', icon: '/assets/images/whatsapp-color-svgrepo-com.svg', alt: 'WhatsApp' },
-  { name: 'Google Calendar', icon: '/assets/images/calendar-svgrepo-com.svg', alt: 'Calendar' },
-  { name: 'Meta Ads', icon: '/assets/images/meta-svgrepo-com.svg', alt: 'Meta' },
-  { name: 'SSL Secure', icon: '/assets/images/security-protection-ssl-certificate-svgrepo-com.svg', alt: 'SSL' },
-  // duplicados para efecto infinito
   { name: 'Google Search', icon: '/assets/images/google-color-svgrepo-com.svg', alt: 'Google' },
   { name: 'WhatsApp API', icon: '/assets/images/whatsapp-color-svgrepo-com.svg', alt: 'WhatsApp' },
   { name: 'Google Calendar', icon: '/assets/images/calendar-svgrepo-com.svg', alt: 'Calendar' },
@@ -25,9 +19,9 @@ export function SocialProof() {
           <SectionLabel>TECNOLOGÍA E INTEGRACIONES COMPATIBLES CON TU CLÍNICA</SectionLabel>
         </div>
 
-        {/* Marquesina */}
+        {/* Marquesina simplificada */}
         <div className="relative overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap py-4">
+          <div className="flex animate-marquee-simple whitespace-nowrap py-4">
             {integrations.map((item, idx) => (
               <div
                 key={`${item.name}-${idx}`}
@@ -37,8 +31,24 @@ export function SocialProof() {
                   src={item.icon}
                   alt={item.alt}
                   className="h-6 w-auto opacity-50 transition hover:opacity-100"
-                  width="24"   // 👈 Añadido para CLS
-                  height="24"  // 👈 Añadido para CLS
+                  width="24"
+                  height="24"
+                />
+                <span>{item.name}</span>
+              </div>
+            ))}
+            {/* Segunda copia para efecto infinito (solo con CSS) */}
+            {integrations.map((item, idx) => (
+              <div
+                key={`${item.name}-${idx}-clone`}
+                className="mx-8 flex items-center gap-3 text-sm font-medium text-white/50 transition hover:text-white/90"
+              >
+                <img
+                  src={item.icon}
+                  alt={item.alt}
+                  className="h-6 w-auto opacity-50 transition hover:opacity-100"
+                  width="24"
+                  height="24"
                 />
                 <span>{item.name}</span>
               </div>
@@ -83,15 +93,15 @@ export function SocialProof() {
       </div>
 
       <style>{`
-        @keyframes marquee {
+        @keyframes marquee-simple {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        .animate-marquee {
-          animation: marquee 20s linear infinite;
+        .animate-marquee-simple {
+          animation: marquee-simple 20s linear infinite;
           width: max-content;
         }
-        .animate-marquee:hover {
+        .animate-marquee-simple:hover {
           animation-play-state: paused;
         }
       `}</style>
@@ -99,7 +109,7 @@ export function SocialProof() {
   )
 }
 
-// Métricas con tus iconos de apoyo
+// Métricas
 const metrics = [
   {
     value: '+30%',

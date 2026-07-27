@@ -1,7 +1,6 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useState, useRef } from 'react'
 import { whatsappLink } from '../content/constants'
-import { easePremium } from '../lib/motion'
 
 // ============================================================
 // ENLACES DE NAVEGACIÓN
@@ -39,35 +38,14 @@ export function Header() {
   }
 
   return (
-    <motion.header
+    // ✅ Ahora usa animaciones CSS en lugar de Framer Motion
+    <header
       ref={headerRef}
-      initial={{ y: -80, opacity: 0 }}
-      animate={{
-        y: 0,
-        opacity: 1,
-        borderColor: [
-          'rgba(255,255,255,0.08)',
-          'rgba(167,139,250,0.2)',
-          'rgba(255,255,255,0.08)',
-        ],
-      }}
-      transition={{
-        type: 'spring',
-        stiffness: 300,
-        damping: 30,
-        borderColor: {
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        },
-        y: { type: 'spring', stiffness: 300, damping: 30 },
-        opacity: { duration: 0.5 },
-      }}
+      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 animate-header"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
     >
-      <div className="w-full max-w-7xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm shadow-black/5 transition-shadow duration-300 hover:shadow-violet-pulse/5 relative overflow-hidden">
+      <div className="w-full max-w-7xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm shadow-black/5 transition-shadow duration-300 hover:shadow-violet-pulse/5 relative overflow-hidden animate-border-pulse">
         {/* Glow que sigue al mouse */}
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -113,13 +91,11 @@ export function Header() {
 
           {/* Acciones derecha */}
           <div className="flex items-center gap-2">
-            {/* Badge de disponibilidad actualizado */}
             <span className="hidden items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400 sm:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Cupos Limitados · Beta
             </span>
 
-            {/* Botón CTA actualizado */}
             <motion.a
               href={whatsappLink}
               target="_blank"
@@ -141,7 +117,7 @@ export function Header() {
               <span className="relative block h-3 w-3.5">
                 <motion.span
                   animate={{ y: open ? 5 : 0, rotate: open ? 45 : 0 }}
-                  transition={{ duration: 0.25, ease: easePremium }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   className="absolute left-0 top-0 h-[1.5px] w-full bg-white"
                 />
                 <motion.span
@@ -151,7 +127,7 @@ export function Header() {
                 />
                 <motion.span
                   animate={{ y: open ? -5 : 0, rotate: open ? -45 : 0 }}
-                  transition={{ duration: 0.25, ease: easePremium }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   className="absolute bottom-0 left-0 h-[1.5px] w-full bg-white"
                 />
               </span>
@@ -163,7 +139,7 @@ export function Header() {
         <motion.nav
           initial={false}
           animate={{ height: open ? 'auto' : 0 }}
-          transition={{ duration: 0.3, ease: easePremium }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden border-t border-white/[0.06] bg-white/5 backdrop-blur-xl md:hidden"
         >
           <div className="flex flex-col px-4 py-4 space-y-2">
@@ -202,6 +178,6 @@ export function Header() {
           </div>
         </motion.nav>
       </div>
-    </motion.header>
+    </header>
   )
 }

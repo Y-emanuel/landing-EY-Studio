@@ -20,7 +20,7 @@ const WhatsAppIcon = () => (
 )
 
 // ============================================================
-// DATOS DE LAS DEMOS (con imagen pequeña para la clínica)
+// DATOS DE LAS DEMOS
 // ============================================================
 const demos = [
   {
@@ -29,12 +29,13 @@ const demos = [
     badge: 'DEMO COMERCIAL • LUZ / MEDICO',
     description:
       'Diseño limpio y luminoso enfocado en transmitir higiene, profesionalismo y cercanía. Ideal para consultorios familiares y medicina prepaga.',
-    image: '/assets/images/landing-clinica-small.webp', // ✅ imagen pequeña
+    image: '/assets/images/landing-clinica.webp',
+    imageSmall: '/assets/images/landing-clinica-small.webp',
     link: 'https://clinica-odontologica-demo.vercel.app/',
     tags: ['Limpieza', 'Conducto', 'Extracciones'],
     tag: 'Clínica Dental / General',
     features: ['Menú rápido de tratamientos', 'Botón flotante de WhatsApp siempre visible'],
-    whatsappLink: 'https://wa.me/5401157653009?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
+    whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
   },
   {
     id: 'elite',
@@ -42,19 +43,19 @@ const demos = [
     badge: 'DEMO COMERCIAL • PREMIUM / DARK',
     description:
       'Diseño de alta gama con estética oscura y elegante. Pensado para clínicas especializadas en carillas, blanqueamiento y alineadores invisibles de alto valor.',
-    image: '/assets/images/landing-barber.webp', // esta es la de barbería (puede quedarse grande)
+    image: '/assets/images/landing-barber.webp',
     link: 'https://barber-demo-dusky.vercel.app/',
     tags: ['Carillas', 'Blanqueamiento', 'Invisalign'],
     tag: 'Estética Dental',
     features: ['Galería interactiva Antes / Después', 'Formulario de evaluación estética inicial'],
-    whatsappLink: 'https://wa.me/5401157653009?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
+    whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
   },
 ]
 
 // ============================================================
 // COMPONENTE DE VENTANA DE NAVEGADOR (Mockup)
 // ============================================================
-function BrowserWindow({ image, title }: { image: string; title: string }) {
+function BrowserWindow({ image, imageSmall, title }: { image: string; imageSmall?: string; title: string }) {
   return (
     <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#1A1A24] shadow-xl">
       <div className="flex items-center gap-2 border-b border-white/5 px-4 py-3">
@@ -66,13 +67,16 @@ function BrowserWindow({ image, title }: { image: string; title: string }) {
         <span className="ml-2 text-xs font-medium text-white/30">{title}</span>
       </div>
 
-      <div className="relative overflow-hidden bg-[#0A0A0F] aspect-[800/420]">
-        <img
-          src={image}
-          alt={title}
-          className="h-full w-full object-cover object-top transition-transform duration-[3000ms] ease-in-out group-hover:translate-y-[-20%]"
-          loading="lazy"
-        />
+      <div className="relative h-56 overflow-hidden bg-[#0A0A0F]">
+        <picture>
+          {imageSmall && <source media="(max-width: 640px)" srcSet={imageSmall} />}
+          <img
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover object-top transition-transform duration-[3000ms] ease-in-out group-hover:translate-y-[-20%]"
+            loading="lazy"
+          />
+        </picture>
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#12121A] to-transparent" />
       </div>
     </div>
@@ -80,7 +84,7 @@ function BrowserWindow({ image, title }: { image: string; title: string }) {
 }
 
 // ============================================================
-// COMPONENTE PRINCIPAL (con export default)
+// COMPONENTE PRINCIPAL
 // ============================================================
 export default function Demos() {
   const [activeTab, setActiveTab] = useState('all')
@@ -154,7 +158,7 @@ export default function Demos() {
                 }}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#12121A] transition-all duration-300 ease-in-out hover:border-[#7C3AED]"
               >
-                <BrowserWindow image={demo.image} title={demo.title} />
+                <BrowserWindow image={demo.image} imageSmall={demo.imageSmall} title={demo.title} />
 
                 <div className="flex flex-1 flex-col p-6 sm:p-8">
                   <span className="mb-3 inline-flex items-center rounded-full bg-[#7C3AED]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#C4B5FD]">

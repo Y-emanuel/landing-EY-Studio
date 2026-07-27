@@ -38,14 +38,13 @@ export function Header() {
   }
 
   return (
-    // ✅ Ahora usa animaciones CSS en lugar de Framer Motion
     <header
       ref={headerRef}
-      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 animate-header"
+      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 animate-header animate-border-pulse"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="w-full max-w-7xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm shadow-black/5 transition-shadow duration-300 hover:shadow-violet-pulse/5 relative overflow-hidden animate-border-pulse">
+      <div className="w-full max-w-7xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm shadow-black/5 transition-shadow duration-300 hover:shadow-violet-pulse/5 relative overflow-hidden">
         {/* Glow que sigue al mouse */}
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -91,11 +90,13 @@ export function Header() {
 
           {/* Acciones derecha */}
           <div className="flex items-center gap-2">
+            {/* Badge de disponibilidad */}
             <span className="hidden items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400 sm:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Cupos Limitados · Beta
             </span>
 
+            {/* Botón CTA */}
             <motion.a
               href={whatsappLink}
               target="_blank"
@@ -107,6 +108,7 @@ export function Header() {
               Solicitar Plan
             </motion.a>
 
+            {/* Hamburguesa (Mobile) */}
             <button
               type="button"
               aria-label={open ? 'Cerrar menú' : 'Abrir menú'}

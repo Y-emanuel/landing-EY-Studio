@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getWhatsAppCustomLink } from '../content/constants';
 
 interface PricingPlan {
@@ -67,10 +67,22 @@ const PLANS: PricingPlan[] = [
 
 export const Pricing: React.FC = () => {
   const [moneda, setMoneda] = useState<'USD' | 'ARS'>('USD');
-  const TASA_CAMBIO_ARS = 1200; // Factor de conversión estimado para ARS
+  const [tasaCambioARS, setTasaCambioARS] = useState<number>(1200); // Fallback inicial
+
+  useEffect(() => {
+    // Obtener cotización en tiempo real del dólar oficial
+    fetch('https://dolarapi.com/v1/dolares/oficial')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.venta) {
+          setTasaCambioARS(data.venta);
+        }
+      })
+      .catch((err) => console.error('Error al obtener la cotización del dólar:', err));
+  }, []);
 
   const formatPrice = (usd: number) => {
-    const val = moneda === 'USD' ? usd : usd * TASA_CAMBIO_ARS;
+    const val = moneda === 'USD' ? usd : usd * tasaCambioARS;
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency: moneda,
@@ -106,21 +118,19 @@ export const Pricing: React.FC = () => {
             <div className="bg-[#12151E] p-1 rounded-xl border border-[#222838] flex gap-1 shadow-md">
               <button
                 onClick={() => setMoneda('USD')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
-                  moneda === 'USD'
+                className={`px-4 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${moneda === 'USD'
                     ? 'bg-[#7C3AED] text-white shadow-md shadow-[#7C3AED]/30'
                     : 'text-[#94A3B8] hover:text-white'
-                }`}
+                  }`}
               >
                 USD ($)
               </button>
               <button
                 onClick={() => setMoneda('ARS')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
-                  moneda === 'ARS'
+                className={`px-4 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${moneda === 'ARS'
                     ? 'bg-[#7C3AED] text-white shadow-md shadow-[#7C3AED]/30'
                     : 'text-[#94A3B8] hover:text-white'
-                }`}
+                  }`}
               >
                 ARS ($)
               </button>
@@ -137,11 +147,10 @@ export const Pricing: React.FC = () => {
             return (
               <div
                 key={plan.id}
-                className={`relative bg-[#12151E] ${
-                  plan.popular 
-                    ? 'border-2 border-[#7C3AED] shadow-[0_0_35px_rgba(124,58,237,0.35)]' 
+                className={`relative bg-[#12151E] ${plan.popular
+                    ? 'border-2 border-[#7C3AED] shadow-[0_0_35px_rgba(124,58,237,0.35)]'
                     : 'border border-[#222838]'
-                } rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 backdrop-blur-xl`}
+                  } rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 backdrop-blur-xl`}
               >
                 {plan.badge && (
                   <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full bg-[#7C3AED] text-[#FFFFFF] border border-[#7C3AED] shadow-md">
@@ -190,11 +199,10 @@ export const Pricing: React.FC = () => {
                   {/* Botón CTA */}
                   <button
                     onClick={() => handleSelectPlan(plan.name, precioFormateado)}
-                    className={`w-full py-3.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all cursor-pointer ${
-                      plan.popular
+                    className={`w-full py-3.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all cursor-pointer ${plan.popular
                         ? 'bg-[#7C3AED] hover:bg-[#9333EA] text-[#FFFFFF] shadow-[0_0_20px_rgba(124,58,237,0.4)]'
                         : 'bg-[#090A0F] hover:bg-[#12151E] border border-[#222838] hover:border-[#7C3AED] hover:text-[#7C3AED] text-white'
-                    }`}
+                      }`}
                   >
                     {plan.ctaText}
                   </button>

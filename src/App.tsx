@@ -1,5 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { MotionConfig } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { SocialProof } from './components/SocialProof'
@@ -37,6 +39,10 @@ function App() {
         <Footer />
         <FloatingWhatsApp />
         <BackToTop />
+
+        {/* Vercel Telemetry */}
+        <Analytics />
+        <SpeedInsights />
       </main>
     </MotionConfig>
   )

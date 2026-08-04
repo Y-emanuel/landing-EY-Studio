@@ -1,218 +1,176 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
-import { SectionLabel } from './ui'
+import React, { useState } from 'react';
+import { getWhatsAppCustomLink } from '../content/constants';
 
-// ============================================================
-// SVG ICONS
-// ============================================================
-const ExternalLinkIcon = () => (
-  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-)
-
-const WhatsAppIcon = () => (
-  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-  </svg>
-)
-
-// ============================================================
-// DATOS DE LAS DEMOS
-// ============================================================
-const demos = [
-  {
-    id: 'clinica',
-    title: 'Clínica Dental & Odontología General',
-    badge: 'DEMO COMERCIAL • LUZ / MEDICO',
-    description:
-      'Diseño limpio y luminoso enfocado en transmitir higiene, profesionalismo y cercanía. Ideal para consultorios familiares y medicina prepaga.',
-    image: '/assets/images/landing-clinica.webp',
-    imageSmall: '/assets/images/landing-clinica-small.webp',
-    link: 'https://clinica-odontologica-demo.vercel.app/',
-    tags: ['Limpieza', 'Conducto', 'Extracciones'],
-    tag: 'Clínica Dental / General',
-    features: ['Menú rápido de tratamientos', 'Botón flotante de WhatsApp siempre visible'],
-    whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
-  },
-  {
-    id: 'elite',
-    title: 'Estética Dental & Ortodoncia Invisible',
-    badge: 'DEMO COMERCIAL • PREMIUM / DARK',
-    description:
-      'Diseño de alta gama con estética oscura y elegante. Pensado para clínicas especializadas en carillas, blanqueamiento y alineadores invisibles de alto valor.',
-    image: '/assets/images/landing-barber.webp',
-    link: 'https://barber-demo-dusky.vercel.app/',
-    tags: ['Carillas', 'Blanqueamiento', 'Invisalign'],
-    tag: 'Estética Dental',
-    features: ['Galería interactiva Antes / Después', 'Formulario de evaluación estética inicial'],
-    whatsappLink: 'https://wa.me/5491111111111?text=Hola%2C%20quiero%20probar%20el%20sistema%20de%20turnos',
-  },
-]
-
-// ============================================================
-// COMPONENTE DE VENTANA DE NAVEGADOR (Mockup)
-// ============================================================
-function BrowserWindow({ image, imageSmall, title }: { image: string; imageSmall?: string; title: string }) {
-  return (
-    <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#1A1A24] shadow-xl">
-      <div className="flex items-center gap-2 border-b border-white/5 px-4 py-3">
-        <div className="flex gap-1.5">
-          <span className="h-3 w-3 rounded-full bg-[#FF5F56]" />
-          <span className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
-          <span className="h-3 w-3 rounded-full bg-[#27C93F]" />
-        </div>
-        <span className="ml-2 text-xs font-medium text-white/30">{title}</span>
-      </div>
-
-      <div className="relative h-56 overflow-hidden bg-[#0A0A0F]">
-        <picture>
-          {imageSmall && <source media="(max-width: 640px)" srcSet={imageSmall} />}
-          <img
-            src={image}
-            alt={title}
-            className="h-full w-full object-cover object-top transition-transform duration-[3000ms] ease-in-out group-hover:translate-y-[-20%]"
-            loading="lazy"
-          />
-        </picture>
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#12121A] to-transparent" />
-      </div>
-    </div>
-  )
+interface DemoItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  features: string[];
+  image: string;
+  demoUrl?: string;
 }
 
-// ============================================================
-// COMPONENTE PRINCIPAL
-// ============================================================
-export default function Demos() {
-  const [activeTab, setActiveTab] = useState('all')
+const DEMOS_DATA: DemoItem[] = [
+  {
+    id: 'implantes',
+    title: 'Clínica de Implantes & Estética',
+    category: 'Alta Conversión',
+    description: 'Estructura optimizada para tratamientos de alto ticket con calculadora de financiación y captura de lead prioritaria.',
+    features: ['Agendamiento prioritario', 'Carga ultra-rápida', 'Prueba social integrada'],
+    image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'ortodoncia',
+    title: 'Ortodoncia & Alineadores Invisibles',
+    category: 'Diseño Premium',
+    description: 'Enfocada en jóvenes y adultos con showcase visual del tratamiento paso a paso y testimonios en video.',
+    features: ['Galería de Antes/Después', 'Enrutamiento a WhatsApp', 'Diseño visual Neón'],
+    image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'general',
+    title: 'Consultorio Odontológico Integral',
+    category: 'Esencial Multi-Sede',
+    description: 'Plantilla versátil para clínicas con múltiples especialidades y staff de profesionales.',
+    features: ['Filtro por especialista', 'Ubicación e integración Maps', 'FAQ interactivo'],
+    image: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800'
+  }
+];
 
-  const tabs = [
-    { id: 'all', label: 'Todos los Diseños' },
-    { id: 'clinica', label: 'Clínica Dental / General' },
-    { id: 'ortodoncia', label: 'Ortodoncia e Implantes' },
-    { id: 'estetica', label: 'Estética Dental' },
-  ]
+export const Demos: React.FC = () => {
+  const [selectedDemo, setSelectedDemo] = useState<DemoItem | null>(null);
 
-  const filteredDemos = demos.filter((demo) => {
-    if (activeTab === 'all') return true
-    if (activeTab === 'clinica') return demo.id === 'clinica'
-    if (activeTab === 'ortodoncia') return demo.id === 'clinica'
-    if (activeTab === 'estetica') return demo.id === 'elite'
-    return true
-  })
+  const handleConsultDemo = (demoTitle: string) => {
+    const mensaje = `Hola EyStudio, estuve viendo la demo de *${demoTitle}* en la web y me gustaría implementar una estructura similar para mi clínica.`;
+    window.open(getWhatsAppCustomLink(mensaje), '_blank');
+  };
 
   return (
-    <section className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28" id="casos">
-      <div className="mx-auto max-w-[1200px]">
-        <div className="mb-12 text-center">
-          <div className="mb-4">
-            <SectionLabel>DEMOS EN VIVO</SectionLabel>
-          </div>
-          <h2 className="mx-auto max-w-[720px] font-outfit text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[36px]">
-            Diseños probados que inspiran confianza y generan consultas.
+    <section id="demos" className="relative border-b border-[#222838] bg-[#090A0F] py-20 px-6">
+      {/* Resplandor ambiental de fondo */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(124,58,237,0.06),transparent_60%)] pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Header Sección */}
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1 mb-3 text-xs font-extrabold text-[#00E5FF] bg-[#00E5FF]/10 rounded-full border border-[#00E5FF]/30 tracking-wider uppercase">
+            Showcase Interactivo
+          </span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white font-outfit">
+            Prototipos de Alta Conversión
           </h2>
-          <p className="mx-auto mt-4 max-w-[640px] text-base font-normal leading-relaxed text-[#9CA3AF] sm:text-lg">
-            Explorá nuestras plantillas interactivas diseñadas específicamente para el sector
-            odontológico. Probá el sistema de turnos tal como lo experimentarán tus pacientes.
+          <p className="text-[#94A3B8] text-sm md:text-base mt-3 max-w-2xl mx-auto">
+            Explora los diseños de infraestructura web desarrollados específicamente para maximizar la reserva de turnos en odontología.
           </p>
         </div>
 
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
-                activeTab === tab.id
-                  ? 'bg-[#7C3AED] text-white shadow-lg shadow-[#7C3AED]/25'
-                  : 'border border-white/10 bg-white/5 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
-              }`}
+        {/* Grid de Demos */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {DEMOS_DATA.map((demo) => (
+            <div
+              key={demo.id}
+              className="bg-[#12151E] border border-[#222838] hover:border-[#7C3AED]/60 rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(124,58,237,0.25)] flex flex-col justify-between backdrop-blur-xl"
             >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="grid grid-cols-1 gap-8 lg:grid-cols-2"
-          >
-            {filteredDemos.map((demo, index) => (
-              <motion.div
-                key={demo.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.4, ease: 'easeOut' }}
-                whileHover={{
-                  y: -4,
-                  borderColor: '#7C3AED',
-                  boxShadow: '0px 10px 30px rgba(124, 58, 237, 0.15)',
-                }}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#12121A] transition-all duration-300 ease-in-out hover:border-[#7C3AED]"
-              >
-                <BrowserWindow image={demo.image} imageSmall={demo.imageSmall} title={demo.title} />
-
-                <div className="flex flex-1 flex-col p-6 sm:p-8">
-                  <span className="mb-3 inline-flex items-center rounded-full bg-[#7C3AED]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#C4B5FD]">
-                    {demo.badge}
+              <div>
+                {/* Imagen / Preview Header */}
+                <div className="relative h-48 overflow-hidden bg-[#090A0F]">
+                  <img
+                    src={demo.image}
+                    alt={demo.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                  />
+                  <span className="absolute top-3 left-3 bg-[#090A0F]/90 backdrop-blur-md border border-[#7C3AED]/40 text-[#00E5FF] text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                    {demo.category}
                   </span>
-                  <h3 className="mb-2 text-xl font-bold text-white">{demo.title}</h3>
-                  <p className="mb-4 text-sm font-normal leading-relaxed text-[#9CA3AF]">{demo.description}</p>
-                  <ul className="mb-6 space-y-1.5">
-                    {demo.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-[#D1D5DB]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#7C3AED]" />
-                        {feature}
+                </div>
+
+                {/* Contenido */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#A855F7] transition-colors font-outfit">
+                    {demo.title}
+                  </h3>
+                  <p className="text-[#94A3B8] text-xs leading-relaxed mb-4">
+                    {demo.description}
+                  </p>
+
+                  <ul className="space-y-2 mb-6">
+                    {demo.features.map((feat, idx) => (
+                      <li key={idx} className="text-xs text-[#94A3B8] flex items-center gap-2 font-medium">
+                        <span className="text-[#00FF87] font-bold">✓</span> {feat}
                       </li>
                     ))}
                   </ul>
-                  <div className="mb-6 flex flex-wrap gap-2">
-                    {demo.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#9CA3AF]">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto flex flex-wrap gap-3">
-                    <a
-                      href={demo.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg bg-[#635BFF] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#7C3AED] hover:shadow-lg hover:shadow-[#635BFF]/25"
-                    >
-                      Ver Demo Completa
-                      <ExternalLinkIcon />
-                    </a>
-                    <a
-                      href={demo.whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg border border-[#25D366]/50 bg-transparent px-5 py-2.5 text-sm font-semibold text-[#25D366] transition-all duration-300 hover:bg-[#25D366]/10 hover:border-[#25D366]"
-                    >
-                      <WhatsAppIcon />
-                      Probar Turno WhatsApp
-                    </a>
-                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+              </div>
 
-        {filteredDemos.length === 0 && (
-          <div className="mt-12 text-center text-[#9CA3AF]">
-            <p>No hay demos disponibles para esta categoría.</p>
+              {/* Acciones */}
+              <div className="p-6 pt-0 flex gap-3">
+                <button
+                  onClick={() => setSelectedDemo(demo)}
+                  className="flex-1 py-2.5 bg-[#090A0F] border border-[#222838] hover:border-[#7C3AED] hover:text-[#A855F7] text-xs font-bold rounded-xl text-white transition-all cursor-pointer"
+                >
+                  Ver Detalle
+                </button>
+                <button
+                  onClick={() => handleConsultDemo(demo.title)}
+                  className="py-2.5 px-4 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-extrabold rounded-xl shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all cursor-pointer"
+                >
+                  Solicitar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Modal de Vista Previa */}
+        {selectedDemo && (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+            <div className="bg-[#12151E] border border-[#7C3AED] rounded-3xl max-w-2xl w-full p-6 md:p-8 relative shadow-[0_0_50px_rgba(124,58,237,0.3)] animate-in fade-in zoom-in duration-200">
+              {/* Botón Cerrar */}
+              <button
+                onClick={() => setSelectedDemo(null)}
+                className="absolute top-4 right-4 text-[#94A3B8] hover:text-white text-lg font-bold w-8 h-8 rounded-full bg-[#090A0F] flex items-center justify-center border border-[#222838] cursor-pointer transition-colors"
+              >
+                ✕
+              </button>
+
+              <span className="text-xs font-extrabold text-[#00E5FF] uppercase tracking-wider block mb-1">
+                {selectedDemo.category}
+              </span>
+              <h3 className="text-2xl font-extrabold text-white mb-4 font-outfit">{selectedDemo.title}</h3>
+
+              <div className="h-56 rounded-xl overflow-hidden mb-6 border border-[#222838] bg-[#090A0F]">
+                <img src={selectedDemo.image} alt={selectedDemo.title} className="w-full h-full object-cover" />
+              </div>
+
+              <p className="text-[#94A3B8] text-xs md:text-sm mb-6 leading-relaxed">
+                {selectedDemo.description}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={() => {
+                    handleConsultDemo(selectedDemo.title);
+                    setSelectedDemo(null);
+                  }}
+                  className="flex-1 py-3.5 bg-[#00FF87] hover:bg-[#00e578] text-[#090A0F] font-extrabold uppercase tracking-wider text-xs rounded-xl shadow-[0_0_20px_rgba(0,255,135,0.3)] transition-all cursor-pointer"
+                >
+                  Pedir Demo por WhatsApp
+                </button>
+                <button
+                  onClick={() => setSelectedDemo(null)}
+                  className="py-3.5 px-6 bg-[#090A0F] border border-[#222838] text-white font-bold text-xs rounded-xl hover:bg-[#12151E] hover:border-[#7C3AED] transition-all cursor-pointer"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default Demos;

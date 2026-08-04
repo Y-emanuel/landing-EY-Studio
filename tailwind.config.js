@@ -1,24 +1,27 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+module.exports = {
+  content: ['./src/**/*.{astro,html,js,jsx,md,svelte,ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        ink: '#050507',
-        graphite: '#111116',
-        violet: {
-          pulse: '#8b5cf6',
-          haze: '#a78bfa',
-          deep: '#3b0764',
-        },
+        brand: {
+          dark: '#090A0F',        // Fondo base ultra oscuro
+          surface: '#12151E',     // Tarjetas y elementos elevados (glassmorphism)
+          border: '#222838',      // Bordes neón/oscuros
+          primary: '#7C3AED',     // Violeta Neón principal
+          primaryHover: '#6D28D9',
+          accent: '#A855F7',      // Violeta Neón claro
+          cyan: '#00E5FF',        // Cian Neón
+          neonGreen: '#00FF87',   // Verde Neón para WhatsApp/CTAs
+          text: '#FFFFFF',        // Texto principal
+          muted: '#94A3B8',      // Texto secundario
+        }
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
-      },
-      boxShadow: {
-        glow: '0 0 20px rgba(139, 92, 246, 0.1)', // aún más reducido
-      },
+        sans: ['Inter', 'sans-serif'],
+        outfit: ['Outfit', 'sans-serif'], // Fuente principal para títulos impactantes
+        display: ['Outfit', 'sans-serif'],
+      }
     },
   },
   plugins: [],

@@ -1,280 +1,211 @@
-import { memo } from 'react'
-import { motion } from 'framer-motion'
-import { SectionLabel } from './ui'
-import { whatsappLink } from '../content/constants'
-
-// ============================================================
-// SVG ICONS
-// ============================================================
-const CheckIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 640 640"
-    className="inline-block h-4 w-4 flex-shrink-0 text-[#25D366]"
-  >
-    <path
-      fill="currentColor"
-      d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"
-    />
-  </svg>
-)
-
-const ClockIcon = () => (
-  <svg className="inline-block h-4 w-4 text-[#9CA3AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-)
-
-// ============================================================
-// TIPOS
-// ============================================================
-type BadgeType = 'esencial' | 'pro'
-
-interface PricingBadgeProps {
-  badge: {
-    label: string
-    subLabel: string
-    type: BadgeType
-  }
-}
+import React, { useState } from 'react';
+import { getWhatsAppCustomLink } from '../content/constants';
 
 interface PricingPlan {
-  id: string
-  name: string
-  badge: {
-    label: string
-    subLabel: string
-    type: BadgeType
-  }
-  description: string
-  price: string
-  priceNote: string
-  originalPrice?: string
-  deliveryTime: string
-  features: string[]
-  maintenance: {
-    price: string
-    details: string
-    trialNote?: string
-  }
-  cta: string
-  ctaLink: string
-  highlighted: boolean
+  id: string;
+  name: string;
+  badge?: string;
+  popular?: boolean;
+  priceUSD: number;
+  deliveryTime: string;
+  structure: string;
+  features: string[];
+  multisiteAddon?: string;
+  maintenancePrice: number;
+  ctaText: string;
 }
 
-// ============================================================
-// DATOS DE PRECIOS
-// ============================================================
-const pricingData: PricingPlan[] = [
+const PLANS: PricingPlan[] = [
   {
     id: 'esencial',
-    name: 'Plan Esencial — Sistema de Captación Directa',
-    badge: {
-      label: '🚀 Entrega Exprés',
-      subLabel: 'Cupos limitados por mes',
-      type: 'esencial',
-    },
-    description: 'Ideal para consultorios que buscan su primera presencia digital profesional con enfoque en conversión móvil.',
-    price: '$290 USD',
-    priceNote: 'Pago único',
+    name: 'Plan Esencial',
+    priceUSD: 450,
     deliveryTime: '3 a 5 días hábiles',
+    structure: 'Single Page Application (SPA) ultra-rápida de hasta 5 bloques estratégicos.',
     features: [
-      'Landing Page Móvil Ultra-Rápida: hasta 5 bloques enfocados en conversión móvil (+85% del tráfico dental/médico).',
-      'Derivación Directa a WhatsApp: formulario corto con redirección automática y mensaje pre-armado.',
-      'Módulo de Confianza: integración de Google Maps, fotos de las instalaciones y redes sociales.',
-      'Optimización de Carga Exprés: compresión de imágenes para apertura en menos de 2 segundos.',
-      'Soporte & Garantía: 14 días de asistencia post-entrega para ajustes técnicos.',
+      'Formulario directo con derivación a 1 WhatsApp con mensaje pre-estructurado',
+      'Maquetación responsive (100% Mobile First)',
+      'Optimización de velocidad y carga rápida'
     ],
-    maintenance: {
-      price: '+$20 USD / mes',
-      details: 'Hosting de alta velocidad, 2 actualizaciones mensuales, monitoreo 24/7.',
-    },
-    cta: 'Solicitar Plan Esencial',
-    ctaLink: `${whatsappLink}?text=Hola%20Emanuel%2C%20quiero%20solicitar%20el%20Plan%20Esencial%20para%20mi%20cl%C3%ADnica%20dental.`,
-    highlighted: false,
+    multisiteAddon: '+$150 USD por sede extra (permite cambiar dinámicamente precios, dirección y el WhatsApp receptor según la ubicación elegida).',
+    maintenancePrice: 49,
+    ctaText: 'Elegir Plan Esencial'
   },
   {
     id: 'pro',
-    name: 'Plan PRO — Sistema de Agendamiento y Triaje',
-    badge: {
-      label: '⭐ Más Elegido por Clínicas',
-      subLabel: 'Garantía de Satisfacción',
-      type: 'pro',
-    },
-    description: 'Para clínicas que buscan maximizar la conversión de pacientes de alto ticket (Ortodoncia, Implantes, Estética).',
-    price: '$450 USD',
-    priceNote: 'Pago único',
+    name: 'Plan PRO',
+    badge: 'MÁS ELEGIDO',
+    popular: true,
+    priceUSD: 850,
     deliveryTime: '5 a 7 días hábiles',
+    structure: 'Arquitectura de Alto Impacto de hasta 8 bloques con Copywriting comercial persuasivo.',
     features: [
-      'Estructura de Alto Impacto: hasta 8 bloques con arquitectura de información para vender tratamientos de alto ticket.',
-      'Copywriting Comercial: redacción enfocada en derribar objeciones y resaltar el diferencial de la clínica.',
-      'Formulario de Triaje y Agendamiento: filtro previo por especialidad y rango horario antes de derivar a WhatsApp.',
-      'Módulo Interactivo Antes/Después: galería visual optimizada para mostrar casos de éxito sin lentificar la página.',
-      'SEO Local Avanzado: optimización inicial para búsquedas geolocalizadas en tu ciudad/zona.',
-      'Garantía de Rendimiento Google Speed (90+): optimización extrema de código.',
-      'Soporte Prioritario: 30 días de acompañamiento post-lanzamiento.',
+      'Formulario de Triaje / Filtrado previo de pacientes',
+      'Módulo interactivo de Casos de Éxito (Deslizador Antes / Después)',
+      'Garantía de rendimiento Google Speed Index 90+',
+      'Derivación inteligente a WhatsApp y correo electrónico'
     ],
-    maintenance: {
-      price: '+$35 USD / mes',
-      details: 'Hosting prioritario, 4 cambios de contenido mensuales, respaldos semanales y mantenimiento SEO.',
-    },
-    cta: 'Postular a Plan PRO',
-    ctaLink: `${whatsappLink}?text=Hola%20Emanuel%2C%20quiero%20postular%20al%20Plan%20PRO%20para%20mi%20cl%C3%ADnica%20dental.`,
-    highlighted: true,
+    maintenancePrice: 99,
+    ctaText: 'Elegir Plan PRO'
   },
-]
+  {
+    id: 'enterprise',
+    name: 'Plan Enterprise',
+    priceUSD: 1500,
+    deliveryTime: '10 a 14 días hábiles',
+    structure: 'Plataforma multisección escalable diseñada para múltiples profesionales, especialidades o sedes.',
+    features: [
+      'Sistema Multisede completo integrado',
+      'Simulador / Cotizador dinámico de tratamientos',
+      'Medición & Tracking completo (Meta Pixel, GA4 y Google Tag Manager)',
+      'Integración vía Webhooks / APIs a CRM o bases de datos externas'
+    ],
+    maintenancePrice: 199,
+    ctaText: 'Elegir Plan Enterprise'
+  }
+];
 
-// ============================================================
-// COMPONENTE DE BADGE
-// ============================================================
-function PricingBadge({ badge }: PricingBadgeProps) {
-  const isPro = badge.type === 'pro'
+export const Pricing: React.FC = () => {
+  const [moneda, setMoneda] = useState<'USD' | 'ARS'>('USD');
+  const TASA_CAMBIO_ARS = 1200; // Factor de conversión estimado para ARS
 
-  return (
-    <div
-      className={`relative mb-4 inline-flex flex-col items-start rounded-lg px-4 py-2 text-left ${
-        isPro
-          ? 'border border-yellow-500/30 bg-gradient-to-r from-yellow-500/10 to-amber-500/5 shadow-[0_0_20px_rgba(234,179,8,0.08)]'
-          : 'border border-violet-500/30 bg-gradient-to-r from-violet-500/10 to-indigo-500/5 shadow-[0_0_20px_rgba(139,92,246,0.08)]'
-      }`}
-    >
-      <div
-        className={`absolute left-0 top-1/2 h-8 w-0.5 -translate-y-1/2 rounded-full ${
-          isPro ? 'bg-yellow-500' : 'bg-violet-500'
-        } shadow-lg ${isPro ? 'shadow-yellow-500/50' : 'shadow-violet-500/50'}`}
-      />
-      <span className={`text-sm font-bold tracking-tight ${isPro ? 'text-yellow-400' : 'text-violet-400'}`}>
-        {badge.label}
-      </span>
-      <span className="text-[10px] font-medium uppercase tracking-wider text-white/50">
-        {badge.subLabel}
-      </span>
-    </div>
-  )
-}
+  const formatPrice = (usd: number) => {
+    const val = moneda === 'USD' ? usd : usd * TASA_CAMBIO_ARS;
+    return new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: moneda,
+      maximumFractionDigits: 0,
+    }).format(val);
+  };
 
-// ============================================================
-// TARJETA DE PRECIO
-// ============================================================
-function PricingCard({ plan, index }: { plan: PricingPlan; index: number }) {
-  const isPro = plan.highlighted
+  const handleSelectPlan = (planName: string, priceFormatted: string) => {
+    const mensaje = `Hola EyStudio, quiero solicitar información para contratar el *${planName}* (${priceFormatted}).`;
+    window.open(getWhatsAppCustomLink(mensaje), '_blank');
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.15, duration: 0.4, ease: 'easeOut' }}
-      whileHover={
-        isPro
-          ? {
-              boxShadow: '0px 0px 40px rgba(124, 58, 237, 0.35)',
-            }
-          : {
-              y: -4,
-              borderColor: 'rgba(139, 92, 246, 0.3)',
-            }
-      }
-      className={`relative flex flex-col rounded-2xl p-6 transition-all duration-300 ease-in-out sm:p-8 lg:p-10 ${
-        isPro
-          ? 'bg-[#161324] border border-[#7C3AED] shadow-2xl shadow-[#7C3AED]/20 lg:-translate-y-2'
-          : 'bg-[#12121A] border border-white/10'
-      }`}
-    >
-      <PricingBadge badge={plan.badge} />
+    <section id="precios" className="relative border-b border-[#222838] bg-[#090A0F] py-20 px-6">
+      {/* Resplandor ambiental de fondo */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(124,58,237,0.06),transparent_60%)] pointer-events-none" />
 
-      <h3 className="mb-2 text-2xl font-bold text-white">{plan.name}</h3>
-      <p className="mb-4 text-sm font-normal leading-relaxed text-[#9CA3AF]">{plan.description}</p>
-
-      <div className="mb-1 flex items-baseline gap-2">
-        {plan.originalPrice && (
-          <span className="text-lg font-medium text-[#9CA3AF] line-through">
-            {plan.originalPrice}
+      <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <span className="inline-block px-4 py-1 mb-3 text-xs font-extrabold text-[#00E5FF] bg-[#00E5FF]/10 rounded-full border border-[#00E5FF]/30 tracking-wider uppercase">
+            Inversión Transparente
           </span>
-        )}
-        <span className="text-4xl font-extrabold text-white">{plan.price}</span>
-      </div>
-      <p className="mb-4 text-xs text-[#6B7280]">{plan.priceNote}</p>
-
-      <div className="mb-6 flex items-center gap-2 text-sm text-[#9CA3AF]">
-        <ClockIcon />
-        <span>⏱ {plan.deliveryTime}</span>
-      </div>
-
-      <div className="mb-6 h-px w-full bg-white/10" />
-
-      <ul className="mb-6 flex flex-col gap-3">
-        {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2 text-sm leading-relaxed text-[#D1D5DB]">
-            <span className="mt-0.5">
-              <CheckIcon />
-            </span>
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      <div
-        className={`mb-6 rounded-lg border p-4 ${
-          isPro
-            ? 'border-[#7C3AED]/30 bg-[#7C3AED]/10'
-            : 'border-white/5 bg-white/5'
-        }`}
-      >
-        <div className="flex items-baseline justify-between">
-          <span className="text-sm font-medium text-white">Mantenimiento</span>
-          <span className="text-sm font-bold text-[#25D366]">{plan.maintenance.price}</span>
-        </div>
-        <p className="mt-1 text-xs leading-relaxed text-[#9CA3AF]">
-          {plan.maintenance.details}
-        </p>
-      </div>
-
-      <motion.a
-        href={plan.ctaLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className={`mt-auto w-full rounded-full px-6 py-3 text-center text-sm font-bold transition-all duration-300 ${
-          isPro
-            ? 'bg-[#7C3AED] text-white shadow-lg shadow-[#7C3AED]/40 hover:bg-[#6D28D9] hover:shadow-[#7C3AED]/60'
-            : 'bg-white/10 text-white ring-1 ring-white/20 hover:bg-white/20'
-        }`}
-      >
-        {plan.cta}
-      </motion.a>
-    </motion.div>
-  )
-}
-
-// ============================================================
-// COMPONENTE PRINCIPAL (con memo)
-// ============================================================
-const Pricing = memo(function Pricing() {
-  return (
-    <section id="precios" className="relative border-b border-white/5 bg-[#0A0A0F] px-6 py-24 md:px-8 lg:py-28">
-      <div className="mx-auto max-w-[1100px]">
-        <div className="mb-12 text-center">
-          <div className="mb-4">
-            <SectionLabel>INVERSIÓN TRANSPARENTE</SectionLabel>
-          </div>
-          <h2 className="mx-auto max-w-[720px] font-outfit text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[36px]">
-            Planes diseñados para la escala de tu consultorio.
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white font-outfit">
+            Planes de Infraestructura
           </h2>
-          <p className="mx-auto mt-4 max-w-[640px] text-base font-normal leading-relaxed text-[#9CA3AF] sm:text-lg">
-            Elegí la solución que mejor se adapte a la etapa actual de tu clínica. Sin costos ocultos.
+          <p className="text-[#94A3B8] text-sm md:text-base mt-3 max-w-2xl mx-auto">
+            Sin tarifas ocultas. Elige la solución que se adapte al volumen actual de tu clínica.
           </p>
+
+          {/* Switch de Moneda */}
+          <div className="flex justify-center mt-6">
+            <div className="bg-[#12151E] p-1 rounded-xl border border-[#222838] flex gap-1 shadow-md">
+              <button
+                onClick={() => setMoneda('USD')}
+                className={`px-4 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                  moneda === 'USD'
+                    ? 'bg-[#7C3AED] text-white shadow-md shadow-[#7C3AED]/30'
+                    : 'text-[#94A3B8] hover:text-white'
+                }`}
+              >
+                USD ($)
+              </button>
+              <button
+                onClick={() => setMoneda('ARS')}
+                className={`px-4 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                  moneda === 'ARS'
+                    ? 'bg-[#7C3AED] text-white shadow-md shadow-[#7C3AED]/30'
+                    : 'text-[#94A3B8] hover:text-white'
+                }`}
+              >
+                ARS ($)
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="mx-auto grid max-w-[960px] grid-cols-1 gap-8 lg:grid-cols-2">
-          {pricingData.map((plan, index) => (
-            <PricingCard key={plan.id} plan={plan} index={index} />
-          ))}
+        {/* Grid de Planes */}
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
+          {PLANS.map((plan) => {
+            const precioFormateado = formatPrice(plan.priceUSD);
+            const mantenimientoFormateado = formatPrice(plan.maintenancePrice);
+
+            return (
+              <div
+                key={plan.id}
+                className={`relative bg-[#12151E] ${
+                  plan.popular 
+                    ? 'border-2 border-[#7C3AED] shadow-[0_0_35px_rgba(124,58,237,0.35)]' 
+                    : 'border border-[#222838]'
+                } rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 backdrop-blur-xl`}
+              >
+                {plan.badge && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full bg-[#7C3AED] text-[#FFFFFF] border border-[#7C3AED] shadow-md">
+                    {plan.badge}
+                  </span>
+                )}
+
+                <div>
+                  <h3 className="text-xl font-bold text-[#FFFFFF] mb-2 font-outfit">{plan.name}</h3>
+                  <p className="text-xs text-[#94A3B8] mb-6 min-h-[36px] leading-relaxed">{plan.structure}</p>
+
+                  {/* Precio */}
+                  <div className="mb-6 pb-6 border-b border-[#222838]">
+                    <span className={`text-4xl md:text-5xl font-extrabold font-outfit ${plan.popular ? 'text-[#7C3AED]' : 'text-white'}`}>
+                      {precioFormateado}
+                    </span>
+                    <span className="text-xs text-[#94A3B8] block mt-1">Pago único • Tiempo: {plan.deliveryTime}</span>
+                  </div>
+
+                  {/* Características */}
+                  <ul className="space-y-3 mb-6">
+                    {plan.features.map((feat, idx) => (
+                      <li key={idx} className="text-xs text-[#94A3B8] flex items-start gap-2 font-medium">
+                        <span className="text-[#7C3AED] shrink-0 font-bold">✓</span>
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Adicional Multisede si aplica */}
+                  {plan.multisiteAddon && (
+                    <div className="mb-6 rounded-xl bg-[#7C3AED]/10 border border-[#7C3AED]/30 p-3 text-xs text-[#7C3AED]">
+                      <strong className="block font-bold mb-0.5 text-white">Adicional Multisede:</strong>
+                      {plan.multisiteAddon}
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  {/* Mantenimiento Opcional */}
+                  <div className="mb-6 pt-4 border-t border-[#222838] flex items-center justify-between text-xs text-[#94A3B8]">
+                    <span>Mantenimiento Opcional:</span>
+                    <strong className="text-white font-bold">{mantenimientoFormateado} / mes</strong>
+                  </div>
+
+                  {/* Botón CTA */}
+                  <button
+                    onClick={() => handleSelectPlan(plan.name, precioFormateado)}
+                    className={`w-full py-3.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all cursor-pointer ${
+                      plan.popular
+                        ? 'bg-[#7C3AED] hover:bg-[#9333EA] text-[#FFFFFF] shadow-[0_0_20px_rgba(124,58,237,0.4)]'
+                        : 'bg-[#090A0F] hover:bg-[#12151E] border border-[#222838] hover:border-[#7C3AED] hover:text-[#7C3AED] text-white'
+                    }`}
+                  >
+                    {plan.ctaText}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
-  )
-})
+  );
+};
 
-export default Pricing
+export default Pricing;
